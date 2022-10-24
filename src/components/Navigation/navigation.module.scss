@@ -1,0 +1,16 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    &__item {
+        color: white;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

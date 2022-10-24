@@ -1,0 +1,12 @@
+@import './normalize.scss';
+
+body {
+    background-color: gray;
+}
+
+.wrapper {
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+    background-color: black;
+}

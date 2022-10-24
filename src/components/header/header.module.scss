@@ -1,0 +1,44 @@
+.header {
+    background-color: #B11226;
+    height: 50px;
+
+    &__name {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: white;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 52px;
+    }
+
+    &__buttons {
+        width: 132px;
+        height: 36px;
+        margin-left: 15px;
+        cursor: pointer;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+
+        &:hover {
+            opacity: 0.5;
+            transition: 0.5s
+
+        }
+    }
+
+    &__buttons_list {
+        :nth-child(2) {
+            background-color: #B11226;
+        }
+
+        :nth-child(1) {
+            background-color: black;
+            color:  white;
+        }
+    }
+}
