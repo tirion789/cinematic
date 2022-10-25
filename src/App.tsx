@@ -1,4 +1,5 @@
 import React from 'react';
+// import Home from './pages/home';
 import Main from './pages/main';
 
 import './scss/app.scss';
