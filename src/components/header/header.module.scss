@@ -60,7 +60,7 @@
         transition: 1s;
         display: flex;
         flex-direction: column;
-        padding: 125px 224px
+        padding: 43px 224px
     }
 
 
@@ -139,11 +139,6 @@
 
     &__login {
         margin-top: 30px;
-        width: 220px;
-        height: 67px;
-        position: relative;
-        left: 50%;
-        transform: translate(-50%, 0);
         background: #B11226;
         border-radius: 53px;
         cursor: pointer;
@@ -152,6 +147,59 @@
         font-size: 36px;
         line-height: 43px;
         color: white;
+        text-align: center;
+        padding: 15px;
+    }
+
+    &__buttons_cotainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    &__sign_up {
+
+        &:active{
+            opacity: 1;
+        }
+
+        &:focus {
+            background-color: white;
+            color: #B11226;
+            border: 1px solid #000000;
+            width: 300px;
+        }
+    }
+
+
+    &__active {
+        background-color: white;
+        color: #B11226;
+        border: 1px solid #000000;
+        border-radius: 53px;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 43px;
+        text-align: center;
+        margin-top: 30px;
+        padding: 15px 0;
+    }
+
+    &__submit_button {
+        background-color: #B11226;
+        border-radius: 53px;
+        border: 0;
+        width: 220px;
+        height: 67px;
+        cursor: pointer;
+        margin-top: 25px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 36px;
+        line-height: 43px;
+        color: #fff;
 
         &:active {
             opacity: 0.5;
@@ -159,6 +207,7 @@
 
         &:disabled{
             background-color: #707070;
+            color: white;
             &:active {
                 opacity: 1;
             }
