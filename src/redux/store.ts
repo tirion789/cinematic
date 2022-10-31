@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import filter from './slices/filterSlice';
+import userReducer from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
-    filter,
+    filter: filter,
+    user: userReducer,
   },
 });
 

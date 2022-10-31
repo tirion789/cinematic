@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Login from '../login/login';
 import Logup from '../logup/logup';
 import styles from './header.module.scss';
+import { useAuth } from '../../hooks/auth';
+import { removeUser } from '../../redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +22,8 @@ const Header: React.FC = () => {
   const [openFormAuth, setOpenFormAuth] = useState(false);
   const [openFormReg, setOpenFormReg] = useState(true);
   const [activeCategoties, setActiveCategories] = useState(0);
+  const { isAuth } = useAuth();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (emailError || passwordError || usernameError) {
@@ -88,12 +94,18 @@ const Header: React.FC = () => {
     <div className={styles.header}>
       <ul className={styles.header__list}>
         <li className={styles.header__name}>CINETREX</li>
-        <li className={styles.header__buttons_list}>
-          <a onClick={() => setOpen(true)} className={styles.header__buttons}>
-            Sign in
-          </a>
-          <a className={styles.header__buttons}>Join</a>
-        </li>
+        {isAuth ? (
+          <Link style={{ color: 'black' }} onClick={() => dispatch(removeUser())} to={'/'}>
+            ВЫЙТИ АХАХАХАХ
+          </Link>
+        ) : (
+          <li className={styles.header__buttons_list}>
+            <a onClick={() => setOpen(true)} className={styles.header__buttons}>
+              Sign in
+            </a>
+            <a className={styles.header__buttons}>Join</a>
+          </li>
+        )}
       </ul>
       <div className={open ? styles.header__modal_overlay : ''}>
         <div className={`${styles.header__modal} ${open ? styles.header__modal_show : ''}`}>
@@ -119,6 +131,7 @@ const Header: React.FC = () => {
             emailHandler={emailHandler}
             usernameHandler={usernameHandler}
             setOpen={setOpen}
+            password={password}
             username={username}
             blurHandler={blurHandler}
             email={email}
@@ -128,6 +141,9 @@ const Header: React.FC = () => {
             emailError={emailError}
             formValid={formValid}
             openFormAuth={openFormAuth}
+            passwordHandler={passwordHandler}
+            passwordDirty={passwordDirty}
+            passwordError={passwordError}
           />
           <Login
             password={password}

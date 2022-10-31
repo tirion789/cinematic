@@ -5,7 +5,7 @@ import CartFilms from '../components/cartFilms/cartFilms';
 import styles from './main.module.scss';
 import Footer from '../components/footer/footer';
 
-const Home: React.FC = () => {
+const Main: React.FC = () => {
   const [items, setItems] = useState([]);
 
   console.log(items);
@@ -33,4 +33,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Main;

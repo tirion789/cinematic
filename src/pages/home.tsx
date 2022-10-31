@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const Home: React.FC = () => {
   const [value, setValue] = useState('');
-
   const [items, setItems] = useState([]);
 
   console.log(items);

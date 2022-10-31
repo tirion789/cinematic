@@ -1,5 +1,9 @@
 import React from 'react';
 import styles from '../header/header.module.scss';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slices/userSlice';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
   passwordHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
@@ -24,21 +28,35 @@ type HeaderProps = {
 const Login: React.FC<HeaderProps> = ({
   passwordHandler,
   emailHandler,
-  usernameHandler,
   openFormReg,
   setOpen,
-  username,
   blurHandler,
   password,
   email,
-  userDirty,
-  usernameError,
   emailDirty,
   emailError,
   passwordDirty,
   passwordError,
-  formValid,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handlerRegister = () => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
+      console.log(user);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          // @ts-ignore
+          token: user.accessToken,
+        }),
+      );
+      navigate('/home');
+    });
+  };
+
   return (
     <>
       {openFormReg && (
@@ -46,7 +64,7 @@ const Login: React.FC<HeaderProps> = ({
           <div className={styles.header__modal_inner}>
             <button className={styles.header__close} onClick={() => setOpen(false)}></button>
           </div>
-          <input
+          {/* <input
             value={username}
             onChange={(e) => usernameHandler(e)}
             onBlur={(e) => blurHandler(e)}
@@ -54,8 +72,8 @@ const Login: React.FC<HeaderProps> = ({
             name="username"
             type="text"
             placeholder="Username"
-          />
-          {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>}
+          /> */}
+          {/* {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>} */}
           <input
             onChange={(e) => emailHandler(e)}
             value={email}
@@ -76,8 +94,8 @@ const Login: React.FC<HeaderProps> = ({
             placeholder="Password"
           />
           {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-          <button disabled={!formValid} className={styles.header__submit_button} type="submit">
-            Log in
+          <button onClick={handlerRegister} className={styles.header__submit_button} type="submit">
+            Register
           </button>
         </>
       )}

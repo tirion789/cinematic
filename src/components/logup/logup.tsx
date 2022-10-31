@@ -1,36 +1,64 @@
 import React from 'react';
 import styles from '../header/header.module.scss';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slices/userSlice';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
   emailHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
   usernameHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
   blurHandler: (e: { target: { name: string } }) => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  passwordHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
 
   username: string;
   email: string;
+  password: string;
   userDirty: boolean;
   usernameError: string;
   emailDirty: boolean;
   emailError: string;
   formValid: boolean;
   openFormAuth: boolean;
+  passwordDirty: boolean;
+  passwordError: string;
 };
 
 const Logup: React.FC<HeaderProps> = ({
   emailHandler,
-  usernameHandler,
+  passwordHandler,
   setOpen,
-  username,
+  passwordDirty,
+  passwordError,
   blurHandler,
   email,
-  userDirty,
-  usernameError,
   emailDirty,
   emailError,
-  formValid,
   openFormAuth,
+  password,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handlerLogin = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            // @ts-ignore
+            token: user.accessToken,
+          }),
+        );
+        navigate('/home');
+      })
+      .catch(console.error);
+  };
+
   return (
     <>
       {openFormAuth && (
@@ -39,26 +67,26 @@ const Logup: React.FC<HeaderProps> = ({
             <button className={styles.header__close} onClick={() => setOpen(false)}></button>
           </div>
           <input
-            value={username}
-            onChange={(e) => usernameHandler(e)}
-            onBlur={(e) => blurHandler(e)}
-            className={styles.header__input}
-            name="username"
-            type="text"
-            placeholder="Username or email"
-          />
-          {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>}
-          <input
-            onChange={(e) => emailHandler(e)}
             value={email}
+            onChange={(e) => emailHandler(e)}
             onBlur={(e) => blurHandler(e)}
             className={styles.header__input}
             name="email"
             type="text"
-            placeholder="Email"
+            placeholder="Username or email"
           />
           {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
-          <button disabled={!formValid} className={styles.header__submit_button} type="submit">
+          <input
+            onChange={(e) => passwordHandler(e)}
+            value={password}
+            onBlur={(e) => blurHandler(e)}
+            className={styles.header__input}
+            name="password"
+            type="text"
+            placeholder="Password"
+          />
+          {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+          <button onClick={handlerLogin} className={styles.header__submit_button} type="submit">
             Log in
           </button>
         </>
