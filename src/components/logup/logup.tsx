@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../header/header.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
-import { AuthErrorCodes, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 
