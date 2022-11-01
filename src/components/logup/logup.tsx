@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../header/header.module.scss';
-import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthErrorCodes, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/store';
 
 type HeaderProps = {
   emailHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
@@ -37,26 +37,29 @@ const Logup: React.FC<HeaderProps> = ({
   emailError,
   openFormAuth,
   password,
+  formValid,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [loginFail, setLoginFail] = useState(false);
 
-  const handlerLogin = () => {
+  const handlerLogin = async () => {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        console.log(user);
+        setLoginFail(false);
         dispatch(
           setUser({
             email: user.email,
             id: user.uid,
-            // @ts-ignore
-            token: user.accessToken,
+            token: user.refreshToken,
           }),
         );
         navigate('/home');
       })
-      .catch(console.error);
+      .catch(() => {
+        setLoginFail(true);
+      });
   };
 
   return (
@@ -86,9 +89,18 @@ const Logup: React.FC<HeaderProps> = ({
             placeholder="Password"
           />
           {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-          <button onClick={handlerLogin} className={styles.header__submit_button} type="submit">
+          <button
+            disabled={!formValid}
+            onClick={handlerLogin}
+            className={styles.header__submit_button}
+            type="submit">
             Log in
           </button>
+          {loginFail && (
+            <div style={{ width: 500, color: 'red', margin: 65 }}>
+              Ошибка в вводе пороля или почты
+            </div>
+          )}
         </>
       )}
     </>

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../header/header.module.scss';
-import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/store';
 
 type HeaderProps = {
   passwordHandler: (e: { target: { value: React.SetStateAction<string> } }) => void;
@@ -37,24 +37,29 @@ const Login: React.FC<HeaderProps> = ({
   emailError,
   passwordDirty,
   passwordError,
+  formValid,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [registerFail, setRegisterFail] = useState(false);
 
-  const handlerRegister = () => {
+  const handlerRegister = async () => {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
-      console.log(user);
-      dispatch(
-        setUser({
-          email: user.email,
-          id: user.uid,
-          // @ts-ignore
-          token: user.accessToken,
-        }),
-      );
-      navigate('/home');
-    });
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        setRegisterFail(false);
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.refreshToken,
+          }),
+        );
+        navigate('/home');
+      })
+      .catch(() => {
+        setRegisterFail(true);
+      });
   };
 
   return (
@@ -72,8 +77,8 @@ const Login: React.FC<HeaderProps> = ({
             name="username"
             type="text"
             placeholder="Username"
-          /> */}
-          {/* {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>} */}
+          />
+          {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>} */}
           <input
             onChange={(e) => emailHandler(e)}
             value={email}
@@ -94,9 +99,18 @@ const Login: React.FC<HeaderProps> = ({
             placeholder="Password"
           />
           {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-          <button onClick={handlerRegister} className={styles.header__submit_button} type="submit">
+          <button
+            disabled={!formValid}
+            onClick={handlerRegister}
+            className={styles.header__submit_button}
+            type="submit">
             Register
           </button>
+          {registerFail && (
+            <div style={{ width: 500, color: 'red', margin: 65 }}>
+              Похоже данная почта уже зарегестрированна :(
+            </div>
+          )}
         </>
       )}
     </>
