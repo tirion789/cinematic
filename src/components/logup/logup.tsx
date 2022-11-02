@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../header/header.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -22,6 +22,13 @@ const Logup: React.FC<ILogup> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFail, setLoginFail] = useState<boolean>(false);
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('users');
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      dispatch(setUser(foundUser));
+    }
+  }, [dispatch]);
 
   const handlerLogin = async () => {
     const auth = getAuth();
@@ -36,6 +43,10 @@ const Logup: React.FC<ILogup> = ({
           }),
         );
         navigate('/home');
+        localStorage.setItem('users', JSON.stringify(user));
+        const loggedInUser = localStorage.getItem('users');
+        const foundUser = JSON.parse(loggedInUser || '');
+        dispatch(setUser(foundUser));
       })
       .catch(() => {
         setLoginFail(true);

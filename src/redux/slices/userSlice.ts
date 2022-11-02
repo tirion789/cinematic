@@ -19,6 +19,7 @@ const userSlice = createSlice({
       state.emails = null;
       state.token = null;
       state.id = null;
+      localStorage.clear();
     },
   },
 });

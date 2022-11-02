@@ -1,12 +1,12 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: 'AIzaSyCXgwiuclv7xx7UIdDeALrJm8kvbyQ97vc',
+  authDomain: 'cinetrex-2c301.firebaseapp.com',
+  projectId: 'cinetrex-2c301',
+  storageBucket: 'cinetrex-2c301.appspot.com',
+  messagingSenderId: '688183553547',
+  appId: '1:688183553547:web:1596bf28e3679742e7e10e',
 };
 
 initializeApp(firebaseConfig);

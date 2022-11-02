@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../header/header.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
@@ -23,6 +23,14 @@ const Login: React.FC<ILogin> = ({
   const navigate = useNavigate();
   const [registerFail, setRegisterFail] = useState(false);
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('users');
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      dispatch(setUser(foundUser));
+    }
+  }, [dispatch]);
+
   const handlerRegister = async () => {
     const auth = getAuth();
     await createUserWithEmailAndPassword(auth, email, password)
@@ -36,6 +44,10 @@ const Login: React.FC<ILogin> = ({
           }),
         );
         navigate('/home');
+        localStorage.setItem('users', JSON.stringify(user));
+        const loggedInUser = localStorage.getItem('users');
+        const foundUser = JSON.parse(loggedInUser || '');
+        dispatch(setUser(foundUser));
       })
       .catch(() => {
         setRegisterFail(true);
