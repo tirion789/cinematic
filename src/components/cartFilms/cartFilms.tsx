@@ -6,8 +6,6 @@ type cartFilmsProps = {
 };
 
 const CartFilms: React.FC<cartFilmsProps> = ({ ImgUrl }) => {
-  // const geners = ['action', 'Sitcoms', 'Romantic', 'K-drama'];
-
   return (
     <ul className={styles.genres__film}>
       <li>

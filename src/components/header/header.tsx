@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Login from '../login/login';
 import Logup from '../logup/logup';
 import styles from './header.module.scss';
@@ -6,6 +6,11 @@ import { useAuth } from '../../hooks/auth';
 import { removeUser } from '../../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
+
+const FORM_TYPES = {
+  signUp: 'Sing Up',
+  singIn: 'Sing In',
+};
 
 const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -19,16 +24,14 @@ const Header: React.FC = () => {
   const [usernameError, setUsernameError] = useState('the username cannot be empty');
   const [username, setUsername] = useState('');
   const [formValid, setFormValid] = useState(false);
-  const [openFormAuth, setOpenFormAuth] = useState(false);
-  const [openFormReg, setOpenFormReg] = useState(true);
-  const [activeCategoties, setActiveCategories] = useState(0);
+  const [formType, setFormType] = useState(FORM_TYPES.signUp);
   const { isAuth, emails } = useAuth();
   const dispatch = useAppDispatch();
 
-  const categories = ['Sing in', 'Sing up'];
-
-  const onClickCategories = (n: React.SetStateAction<number>) => {
-    setActiveCategories(n);
+  const onClickCategories = () => {
+    if (formType === FORM_TYPES.signUp) {
+      setFormType(FORM_TYPES.singIn);
+    } else setFormType(FORM_TYPES.signUp);
   };
 
   useEffect(() => {
@@ -52,7 +55,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const usernameHandler = (e: { target: { value: React.SetStateAction<string> } }) => {
+  const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
     if (e.target.value.length < 3) {
       setUsernameError('the username cannot be empty');
@@ -64,7 +67,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const emailHandler = (e: { target: { value: React.SetStateAction<string> } }) => {
+  const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     const re =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -79,7 +82,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const passwordHandler = (e: { target: { value: React.SetStateAction<string> } }) => {
+  const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     if (e.target.value.length < 5) {
       setPassError('the password cannot be empty');
@@ -110,60 +113,59 @@ const Header: React.FC = () => {
       </ul>
       <div className={open ? styles.header__modal_overlay : ''}>
         <div className={`${styles.header__modal} ${open ? styles.header__modal_show : ''}`}>
-          <ul className={styles.header__buttons_cotainer}>
-            {categories.map((value, index) => (
-              <li
-                onClick={() => {
-                  // @ts-ignore
-                  onClickCategories(index) || openFormReg
-                    ? //@ts-ignore
-                      setOpenFormAuth(true) || setOpenFormReg(false)
-                    : //@ts-ignore
-                      setOpenFormReg(true) || setOpenFormAuth(false);
-                }}
-                className={`${
-                  activeCategoties === index ? styles.header__active : styles.header__login
-                }`}>
-                {value}
-              </li>
-            ))}
-          </ul>
-          <Logup
-            emailHandler={emailHandler}
-            usernameHandler={usernameHandler}
-            setOpen={setOpen}
-            password={password}
-            username={username}
-            blurHandler={blurHandler}
-            email={email}
-            userDirty={userDirty}
-            usernameError={usernameError}
-            emailDirty={emailDirty}
-            emailError={emailError}
-            formValid={formValid}
-            openFormAuth={openFormAuth}
-            passwordHandler={passwordHandler}
-            passwordDirty={passwordDirty}
-            passwordError={passwordError}
-          />
-          <Login
-            password={password}
-            passwordHandler={passwordHandler}
-            emailHandler={emailHandler}
-            usernameHandler={usernameHandler}
-            openFormReg={openFormReg}
-            setOpen={setOpen}
-            username={username}
-            blurHandler={blurHandler}
-            email={email}
-            userDirty={userDirty}
-            usernameError={usernameError}
-            emailDirty={emailDirty}
-            emailError={emailError}
-            passwordDirty={passwordDirty}
-            passwordError={passwordError}
-            formValid={formValid}
-          />
+          <div className={styles.header__buttons_cotainer}>
+            <button
+              onClick={onClickCategories}
+              className={`${
+                formType === FORM_TYPES.signUp ? styles.header__active : styles.header__login
+              }`}>
+              Sing Up
+            </button>
+            <button
+              onClick={onClickCategories}
+              className={`${
+                formType === FORM_TYPES.singIn ? styles.header__active : styles.header__login
+              }`}>
+              Sing In
+            </button>
+          </div>
+          {formType === FORM_TYPES.singIn ? (
+            <Logup
+              emailHandler={emailHandler}
+              usernameHandler={usernameHandler}
+              setOpen={setOpen}
+              password={password}
+              username={username}
+              blurHandler={blurHandler}
+              email={email}
+              userDirty={userDirty}
+              usernameError={usernameError}
+              emailDirty={emailDirty}
+              emailError={emailError}
+              formValid={formValid}
+              passwordHandler={passwordHandler}
+              passwordDirty={passwordDirty}
+              passwordError={passwordError}
+            />
+          ) : (
+            <Login
+              password={password}
+              passwordHandler={passwordHandler}
+              emailHandler={emailHandler}
+              usernameHandler={usernameHandler}
+              setOpen={setOpen}
+              username={username}
+              blurHandler={blurHandler}
+              email={email}
+              userDirty={userDirty}
+              usernameError={usernameError}
+              emailDirty={emailDirty}
+              emailError={emailError}
+              passwordDirty={passwordDirty}
+              passwordError={passwordError}
+              formValid={formValid}
+            />
+          )}
         </div>
       </div>
     </div>

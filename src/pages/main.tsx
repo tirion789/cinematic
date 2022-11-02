@@ -7,12 +7,21 @@ import Footer from '../components/footer/footer';
 
 const Main: React.FC = () => {
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   console.log(items);
   useEffect(() => {
-    axios.get('https://629b64b3656cea05fc3883e0.mockapi.io/Items2').then((response) => {
-      setItems(response.data);
-    });
+    setIsLoading(true);
+    axios
+      .get('https://629b64b3656cea05fc3883e0.mockapi.io/Items2')
+      .then((response) => {
+        setItems(response.data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+      });
   }, []);
 
   return (
@@ -23,14 +32,27 @@ const Main: React.FC = () => {
         Enjoy online streaming of the best Action, Comedy, and Romantic tv series from all over the
         world
       </p>
-      <div className={styles.wrapper}>
-        {items.map((obj: { ImgUrl: string }) => (
-          <CartFilms ImgUrl={obj.ImgUrl} />
-        ))}
-      </div>
+      {error ? (
+        <h1 style={{ color: 'white', padding: 50 }}>error</h1>
+      ) : isLoading ? (
+        <h1 style={{ color: 'white', padding: 50 }}>Loading</h1>
+      ) : (
+        <div className={styles.wrapper}>
+          {items.map(({ ImgUrl }) => (
+            <CartFilms ImgUrl={ImgUrl} />
+          ))}
+        </div>
+      )}
       <Footer />
     </>
   );
 };
 
 export default Main;
+
+// {data.map(({title, imgUrl}) => (
+//   <h2>{title}</h2>
+//   {imgUrl.map(({src})=> (
+//     <img src={src} alt="" />
+//   ))}
+// ))}
