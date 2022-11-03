@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
 import RequireAuth from './hoc/RequireAuth';
 import RequireRegister from './hoc/ReguireRegister';
+import FullFilm from './components/fullFilm/fullFilm';
 
 function App() {
   return (
@@ -27,8 +28,18 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path="/film/:id"
+          element={
+            <RequireAuth>
+              <FullFilm />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );
 }
 export default App;
+
+// element={<FullFilm />}

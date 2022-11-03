@@ -44,9 +44,6 @@ const Logup: React.FC<ILogup> = ({
         );
         navigate('/home');
         localStorage.setItem('users', JSON.stringify(user));
-        const loggedInUser = localStorage.getItem('users');
-        const foundUser = JSON.parse(loggedInUser || '');
-        dispatch(setUser(foundUser));
       })
       .catch(() => {
         setLoginFail(true);

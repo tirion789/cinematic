@@ -45,9 +45,6 @@ const Login: React.FC<ILogin> = ({
         );
         navigate('/home');
         localStorage.setItem('users', JSON.stringify(user));
-        const loggedInUser = localStorage.getItem('users');
-        const foundUser = JSON.parse(loggedInUser || '');
-        dispatch(setUser(foundUser));
       })
       .catch(() => {
         setRegisterFail(true);

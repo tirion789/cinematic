@@ -29,11 +29,10 @@
         background-color: #B11226;
         cursor: pointer;
         position: relative;
-        transition: 0.5s;
+        width: 161px;
+        text-align: center;
+        margin-top: 15px;
 
-        &:not(:last-child) {
-            margin-bottom: 35px;
-        }
 
         &:hover {
             opacity: 0.5;
@@ -44,6 +43,23 @@
         &:active {
             opacity: 0.2;
         }
+    }
+
+
+    &__active_item {
+        background-color: white;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 28px;
+        color: black;
+        margin-right: 49px;
+        padding: 12px 36px;
+        cursor: pointer;
+        position: relative;
+        height: 55px;
+        width: 161px;
+        text-align: center;
+        margin-top: 15px;
     }
 
     &__list {

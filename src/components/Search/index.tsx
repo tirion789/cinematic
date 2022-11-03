@@ -7,7 +7,7 @@ type searchProps = {
   setValue: (text: string) => void;
 };
 
-const Search: React.FC<searchProps> = ({ value, setValue }) => {
+const Search: React.FC<searchProps> = ({ setValue }) => {
   const onChangeSearch = (text: string) => {
     setValue(text);
   };
@@ -22,8 +22,6 @@ const Search: React.FC<searchProps> = ({ value, setValue }) => {
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateSearchValue(event.target.value);
   };
-
-  console.log(value);
 
   return (
     <div className={styles.search}>

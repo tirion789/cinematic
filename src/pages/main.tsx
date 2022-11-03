@@ -38,8 +38,8 @@ const Main: React.FC = () => {
         <h1 style={{ color: 'white', padding: 50 }}>Loading</h1>
       ) : (
         <div className={styles.wrapper}>
-          {items.map(({ ImgUrl }) => (
-            <CartFilms ImgUrl={ImgUrl} />
+          {items.map(({ ImgUrl, id }) => (
+            <CartFilms ImgUrl={ImgUrl} id={id} />
           ))}
         </div>
       )}
