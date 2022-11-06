@@ -7,7 +7,9 @@ const Navigation: React.FC = () => {
   return (
     <ul className={styles.navigation}>
       {navigations.map((navigationName) => (
-        <li className={styles.navigation__item}>{navigationName}</li>
+        <li key={navigationName} className={styles.navigation__item}>
+          {navigationName}
+        </li>
       ))}
     </ul>
   );

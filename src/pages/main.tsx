@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/header/header';
-import axios from 'axios';
 import CartFilms from '../components/cartFilms/cartFilms';
 import styles from './main.module.scss';
 import Footer from '../components/footer/footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { fetchFilms } from '../redux/slices/filmSlice';
 
 const Main: React.FC = () => {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const items = useSelector((state: RootState) => state.film.items);
+  const status = useSelector((state: RootState) => state.film.status);
 
-  console.log(items);
+  const getFilms = async () => {
+    dispatch(fetchFilms());
+  };
+
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get('https://629b64b3656cea05fc3883e0.mockapi.io/Items2')
-      .then((response) => {
-        setItems(response.data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-      });
+    getFilms();
   }, []);
 
   return (
@@ -32,14 +28,14 @@ const Main: React.FC = () => {
         Enjoy online streaming of the best Action, Comedy, and Romantic tv series from all over the
         world
       </p>
-      {error ? (
+      {status === 'error' ? (
         <h1 style={{ color: 'white', padding: 50 }}>error</h1>
-      ) : isLoading ? (
+      ) : status === 'loading' ? (
         <h1 style={{ color: 'white', padding: 50 }}>Loading</h1>
       ) : (
         <div className={styles.wrapper}>
           {items.map(({ ImgUrl, id }) => (
-            <CartFilms ImgUrl={ImgUrl} id={id} />
+            <CartFilms key={id} ImgUrl={ImgUrl} id={id} />
           ))}
         </div>
       )}

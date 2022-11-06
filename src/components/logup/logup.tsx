@@ -32,22 +32,24 @@ const Logup: React.FC<ILogup> = ({
 
   const handlerLogin = async () => {
     const auth = getAuth();
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        setLoginFail(false);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-          }),
-        );
-        navigate('/home');
-        localStorage.setItem('users', JSON.stringify(user));
-      })
-      .catch(() => {
-        setLoginFail(true);
-      });
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      setLoginFail(false);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+        }),
+      );
+      navigate('/home');
+      localStorage.setItem('users', JSON.stringify(user));
+      console.log('1');
+    } catch (error) {
+      setLoginFail(true);
+      console.log('ERROR', error);
+    }
+    console.log('2');
   };
 
   return (

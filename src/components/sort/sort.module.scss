@@ -12,7 +12,7 @@
         &::before{
             content: "";
             border: 5px solid #B11226;
-            filter: blur(4px);
+            filter: blur(2px);
             position: absolute;
             top: 40px;
             width: 1338px;
@@ -29,7 +29,7 @@
         background-color: #B11226;
         cursor: pointer;
         position: relative;
-        width: 161px;
+        width: 165px;
         text-align: center;
         margin-top: 15px;
 

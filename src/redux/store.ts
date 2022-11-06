@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import filter from './slices/filterSlice';
-import userReducer from './slices/userSlice';
+import filterSlice from './slices/filterSlice';
+import userSlice from './slices/userSlice';
+import filmSlice from './slices/filmSlice';
 
 export const store = configureStore({
   reducer: {
-    filter: filter,
-    user: userReducer,
+    filter: filterSlice,
+    user: userSlice,
+    film: filmSlice,
   },
 });
 
