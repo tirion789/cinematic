@@ -1,6 +1,5 @@
 .footer {
     color: white;
-    padding: 0 52px;
     display: flex;
     justify-content: space-between;
 
@@ -22,6 +21,8 @@
     }
 
     &__text {
+        font-family: 'Bitter';
+        font-style: normal;
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
@@ -30,9 +31,27 @@
     
     &__span {
         color: #B11226;
+        font-family: 'Bitter'
     }
 
     &__container {
         width: 665px;
     } 
+
+    &__items {
+        font-family: 'Bitter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    &__title {
+        font-family: 'Bitter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 25px;
+        line-height: 22px;
+        margin-bottom: 10px;
+    }
 }

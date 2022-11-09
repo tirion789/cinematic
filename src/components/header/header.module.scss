@@ -3,9 +3,11 @@
     height: 50px;
 
     &__name {
-        font-weight: 700;
+        font-family: 'Ranchers';
+        font-style: normal;
+        font-weight: 400;
         font-size: 24px;
-        line-height: 29px;
+        line-height: 30px;
         color: white;
     }
 
@@ -20,8 +22,11 @@
         height: 36px;
         margin-left: 15px;
         cursor: pointer;
+        font-family: 'Amaranth';
+        font-style: normal;
         font-weight: 400;
         font-size: 24px;
+        line-height: 29px;
         padding: 2px 57px;
 
         &:hover {
@@ -60,7 +65,8 @@
         transition: 1s;
         display: flex;
         flex-direction: column;
-        padding: 43px 224px
+        padding: 43px 224px;
+        z-index: 1000;
     }
 
 
@@ -143,11 +149,13 @@
         border-radius: 53px;
         cursor: pointer;
         border: 0;
+        font-family: 'Advent Pro';
+        font-style: normal;
         font-weight: 700;
         font-size: 36px;
         line-height: 43px;
-        color: white;
         text-align: center;
+        color: white;
         padding: 15px;
     }
 
@@ -178,6 +186,8 @@
         color: #B11226;
         border: 1px solid #000000;
         border-radius: 53px;
+        font-family: 'Advent Pro';
+        font-style: normal;
         font-weight: 700;
         font-size: 36px;
         line-height: 43px;
@@ -198,8 +208,12 @@
         position: relative;
         left: 50%;
         transform: translate(-50%, 0);
+        font-family: 'Advent Pro';
+        font-style: normal;
+        font-weight: 700;
         font-size: 36px;
         line-height: 43px;
+        text-align: center;
         color: #fff;
         position: absolute;
         bottom: 90px;

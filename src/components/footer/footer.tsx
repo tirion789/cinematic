@@ -22,15 +22,15 @@ const Footer: React.FC = () => {
           </ul>
 
           <ul>
-            <li>Contact</li>
-            <li>Request</li>
-            <li>Mail</li>
-            <li>Sitemap</li>
+            <li className={styles.footer__items}>Contact</li>
+            <li className={styles.footer__items}>Request</li>
+            <li className={styles.footer__items}>Mail</li>
+            <li className={styles.footer__items}>Sitemap</li>
           </ul>
         </div>
       </div>
       <div className={styles.footer__container}>
-        <h1>About Us</h1>
+        <h1 className={styles.footer__title}>About Us</h1>
         <p className={styles.footer__text}>
           <span className={styles.footer__span}>Movietrex</span> is free streaming website with zero
           ads, it allows you watch series online free, watch tv shows online in high quality for

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Header from '../header/header';
+import Header from '../../components/header/header';
 
 const FullFilm = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const FullFilm = () => {
         console.log(data);
         setFilm(data);
       } catch (error) {
-        alert('ошибка епта');
+        alert('ошибка');
       }
     };
     featchFilms();

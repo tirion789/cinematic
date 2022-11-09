@@ -9,13 +9,11 @@ type cartFilmsProps = {
 
 const CartFilms: React.FC<cartFilmsProps> = ({ ImgUrl, id }) => {
   return (
-    <ul className={styles.genres__film}>
-      <li>
-        <Link to={`/film/${id}`}>
-          <img src={ImgUrl} alt="Карточка фильма" />
-        </Link>
-      </li>
-    </ul>
+    <div className={styles.genres__film}>
+      <Link to={`/film/${id}`}>
+        <img src={ImgUrl} alt="Карточка фильма" />
+      </Link>
+    </div>
   );
 };
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import Home from './pages/home';
-import Main from './pages/main';
+import Home from './pages/Home/home';
+import Main from './pages/Main/main';
 import { Routes, Route } from 'react-router-dom';
 
 import './scss/app.scss';
 import RequireAuth from './hoc/RequireAuth';
 import RequireRegister from './hoc/ReguireRegister';
-import FullFilm from './components/fullFilm/fullFilm';
+import FullFilm from './pages/FullFilms/fullFilm';
 
 function App() {
   return (
