@@ -74,7 +74,7 @@ const FullFilm = () => {
             </button>
           ))}
         </div>
-        <div className={styles.fullFilms__discription_list_containter}>
+        <div className={styles.fullFilms__containter}>
           <div>
             <Description
               imgUrl={film.ImgUrl}

@@ -11,7 +11,7 @@ const CartFilms: React.FC<cartFilmsProps> = ({ ImgUrl, id }) => {
   return (
     <div className={styles.genres__film}>
       <Link to={`/film/${id}`}>
-        <img src={ImgUrl} alt="Карточка фильма" />
+        <img width={177} height={250} src={ImgUrl} alt="Карточка фильма" />
       </Link>
     </div>
   );

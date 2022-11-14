@@ -22,7 +22,7 @@ const LikeFilms: React.FC<LikeFilmsProps> = ({ genre, id }) => {
             obj.genre === genre && obj.id !== id ? (
               <div>
                 <Link to={`/film/${obj.id}`}>
-                  <img src={obj.ImgUrl} alt="" />
+                  <img width={137} height={200} src={obj.ImgUrl} alt="" />
                 </Link>
                 <h1 className={styles.likeFilms__list_text}>{obj.title}</h1>
                 <ul>
