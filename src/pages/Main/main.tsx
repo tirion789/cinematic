@@ -32,7 +32,7 @@ const Main: React.FC = () => {
         {status === 'error' ? (
           <h1 style={{ color: 'white', padding: 50 }}>error</h1>
         ) : status === 'loading' ? (
-          <h1 style={{ color: 'white', padding: 50 }}>Loading</h1>
+          <h1 style={{ color: 'white', padding: 50 }}>Loading...</h1>
         ) : (
           <>
             <button className={styles.button}>Sing in</button>

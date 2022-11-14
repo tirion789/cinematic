@@ -2,10 +2,15 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 type filmItem = {
-  id: string;
-  title: string;
   ImgUrl: string;
+  title: string;
+  time: string;
+  rating: string;
+  description: string;
+  country: string;
+  flag: string;
   genre: string;
+  id: string;
 };
 
 export const fetchFilms = createAsyncThunk<filmItem[]>('film/fetchFilmsStatus', async () => {

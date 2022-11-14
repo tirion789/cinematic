@@ -35,11 +35,9 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <div className={styles.content}>
-        <Navigation setActiveGenre={setActiveGenre} />
-        <p className={styles.title}>Find Movies, TV Series and much more</p>
-        <Search value={value} setValue={setValue} />
-      </div>
+      <Navigation setActiveGenre={setActiveGenre} />
+      <p className={styles.title}>Find Movies, TV Series and much more</p>
+      <Search value={value} setValue={setValue} />
       <div className={styles.container}>
         <Recommended activeGenre={activeGenre} />
         <h1 className={styles.genre}>{activeGenre}</h1>
