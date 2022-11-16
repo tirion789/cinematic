@@ -4,15 +4,15 @@ import Navigation from '../../components/Navigation/navigation';
 import Search from '../../components/Search';
 import styles from './home.module.scss';
 import Recommended from '../../components/Recommended/recommended';
-import CartFilms from '../../components/cartFilms/cartFilms';
 import Footer from '../../components/footer/footer';
 import { fetchFilms } from '../../redux/slices/filmSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
+import RecommededFilms from '../../components/RecommendedFilms/recommendedFilms';
 
 const Home: React.FC = () => {
   const [value, setValue] = useState('');
-  const [activeGenre, setActiveGenre] = useState('All');
+  const [activeGenre, setActiveGenre] = useState<string[]>(['Action', 'K drama']);
   const items = useSelector((state: RootState) => state.film.items);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -20,32 +20,31 @@ const Home: React.FC = () => {
     dispatch(fetchFilms());
   };
 
-  const filterBy = (value: string) => {
-    return items.filter((item) => item.genre === value);
-  };
+  console.log(activeGenre);
 
   useEffect(() => {
     getFilms();
   }, [activeGenre]);
 
-  const filterFilms = filterBy(activeGenre).filter((film) => {
+  const filterSearch = items.filter((film) => {
     return film.title.toLowerCase().includes(value.toLowerCase());
   });
+
+  const handleOnGenreClick = (value: string) => {
+    setActiveGenre((prev) => [...prev, value]);
+  };
 
   return (
     <>
       <Header />
-      <Navigation setActiveGenre={setActiveGenre} />
+      <Navigation setActiveGenre={handleOnGenreClick} />
       <p className={styles.title}>Find Movies, TV Series and much more</p>
       <Search value={value} setValue={setValue} />
       <div className={styles.container}>
         <Recommended activeGenre={activeGenre} />
-        <h1 className={styles.genre}>{activeGenre}</h1>
-        <div className={styles.wrapper}>
-          {activeGenre === 'All'
-            ? items.map(({ ImgUrl, id }) => <CartFilms key={id} ImgUrl={ImgUrl} id={id} />)
-            : filterFilms.map(({ id, ImgUrl }) => <CartFilms key={id} ImgUrl={ImgUrl} id={id} />)}
-        </div>
+        {activeGenre.map((item) => (
+          <RecommededFilms genre={item} filteredFilms={filterSearch} />
+        ))}
         <Footer />
       </div>
     </>
@@ -53,19 +52,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-// {filterFilms.map((obj: { imgUrl: string[] }) => (
-//   <CartFilms imgUrl={obj.imgUrl} />
-// ))}
-
-// useEffect(() => {
-//   axios
-//     .get('https://629b64b3656cea05fc3883e0.mockapi.io/Items2?genre=' + activeIndex)
-//     .then((response) => {
-//       setItems(response.data);
-//     });
-// }, [activeIndex]);
-
-// const filterFilms = items.filter((film: { title: string }) => {
-//   return film.title.toLowerCase().includes(value.toLowerCase());
-// });

@@ -5,12 +5,20 @@ import { RootState } from '../../redux/store';
 import styles from './likeFilms.module.scss';
 
 type LikeFilmsProps = {
-  genre: string;
   id: string;
 };
 
-const LikeFilms: React.FC<LikeFilmsProps> = ({ genre, id }) => {
+const LikeFilms: React.FC<LikeFilmsProps> = ({ id }) => {
   const items = useSelector((state: RootState) => state.film.items);
+
+  // const getSimilarFilm = () => {
+  //   return items.filter((item) => {
+  //     return genre.some((genre) => {
+  //       item.genre.includes(genre);
+  //     });
+  //   });
+  // };
+
   return (
     <div className={styles.likeFilms__container}>
       <h1 className={styles.likeFilms__title}>
@@ -18,8 +26,8 @@ const LikeFilms: React.FC<LikeFilmsProps> = ({ genre, id }) => {
       </h1>
       <div className={styles.likeFilms__list}>
         <>
-          {items.map((obj) =>
-            obj.genre === genre && obj.id !== id ? (
+          {items.slice(0, 4).map((obj) =>
+            obj.id !== id ? (
               <div>
                 <Link to={`/film/${obj.id}`}>
                   <img width={137} height={200} src={obj.ImgUrl} alt="" />

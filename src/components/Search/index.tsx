@@ -40,7 +40,6 @@ const Search: React.FC<searchProps> = ({ setValue }) => {
         className={styles.search__input}
         placeholder="Enter the Name......"
       />
-      <button className={styles.search__button}></button>
     </div>
   );
 };

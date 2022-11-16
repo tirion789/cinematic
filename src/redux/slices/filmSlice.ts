@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-type filmItem = {
+export type filmItem = {
   ImgUrl: string;
   title: string;
   time: string;
@@ -9,7 +9,7 @@ type filmItem = {
   description: string;
   country: string;
   flag: string;
-  genre: string;
+  genre: string[];
   id: string;
 };
 

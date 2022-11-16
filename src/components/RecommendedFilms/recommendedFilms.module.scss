@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex; 
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.genre {
+    color: white;
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 58px;
+    margin-top: 30px;
+}

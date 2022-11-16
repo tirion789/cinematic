@@ -23,7 +23,7 @@ const FullFilm = () => {
     description: string;
     country: string;
     flag: string;
-    genre: string;
+    genre: string[];
     id: string;
   }>();
 
@@ -46,9 +46,6 @@ const FullFilm = () => {
     featchFilms();
   }, [id]);
 
-  if (!film) {
-    return <>Загрузка</>;
-  }
   return (
     <>
       <Header />
@@ -58,36 +55,42 @@ const FullFilm = () => {
         }}
       />
       <div className={styles.fullFilms}>
-        <h1 className={styles.fullFilms__title}>Home/ {film.title}</h1>
-        <div className={styles.fullFilms__video}></div>
-        <div className={styles.fullFilms__player_list}>
-          {videoPlayerList.map((value, index) => (
-            <button
-              key={index}
-              onClick={() => onClickButton(value)}
-              className={
-                value === activeButton
-                  ? styles.fullFilms__players_items_active
-                  : styles.fullFilms__player_items
-              }>
-              {value}
-            </button>
-          ))}
-        </div>
-        <div className={styles.fullFilms__containter}>
-          <div>
-            <Description
-              imgUrl={film.ImgUrl}
-              description={film.description}
-              rating={film.rating}
-              time={film.time}
-              title={film.title}
-            />
-            <Dop flag={film.flag} country={film.country} />
-          </div>
-          <LikeFilms id={film.id} genre={film.genre} />
-        </div>
-        <Footer />
+        {!film ? (
+          <h1 className={styles.fullFilms__loading}>...Загрузка</h1>
+        ) : (
+          <>
+            <h1 className={styles.fullFilms__title}>Home/ {film.title}</h1>
+            <div className={styles.fullFilms__video}></div>
+            <div className={styles.fullFilms__player_list}>
+              {videoPlayerList.map((value, index) => (
+                <button
+                  key={index}
+                  onClick={() => onClickButton(value)}
+                  className={
+                    value === activeButton
+                      ? styles.fullFilms__players_items_active
+                      : styles.fullFilms__player_items
+                  }>
+                  {value}
+                </button>
+              ))}
+            </div>
+            <div className={styles.fullFilms__containter}>
+              <div>
+                <Description
+                  imgUrl={film.ImgUrl}
+                  description={film.description}
+                  rating={film.rating}
+                  time={film.time}
+                  title={film.title}
+                />
+                <Dop flag={film.flag} country={film.country} />
+              </div>
+              <LikeFilms id={film.id} />
+            </div>
+            <Footer />
+          </>
+        )}
       </div>
     </>
   );

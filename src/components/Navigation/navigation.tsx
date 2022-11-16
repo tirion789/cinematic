@@ -9,7 +9,7 @@ type HomeProps = {
 const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
   const [genre, setGenre] = useState(false);
   const navigations = ['Home', 'Genre', 'Country', 'Movies', 'TV Series', 'TopImDb'];
-  const titleArray = ['All', 'Action', 'Sitcom', 'Romantic', 'K drama'];
+  const titleArray = ['Action', 'Sitcom', 'Romantic', 'K drama'];
 
   const onActiveGenre = (event: MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value;
