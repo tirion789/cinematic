@@ -30,20 +30,11 @@
         margin-right: 49px;
         padding: 13px 36px;
         background-color: #B11226;
-        cursor: pointer;
         position: relative;
         width: 165px;
         text-align: center;
         margin-top: 15px;
 
-
-        &:hover {
-            opacity: 0.5;
-        }
-
-        &:active {
-            opacity: 0.2;
-        }
     }
 
 
@@ -55,7 +46,6 @@
         color: black;
         margin-right: 49px;
         padding: 12px 36px;
-        cursor: pointer;
         position: relative;
         height: 55px;
         width: 161px;
@@ -72,5 +62,17 @@
 
     &__icon {
         position: absolute;
+    }
+
+    &__deteleButton {
+        right: 10px;
+        top: 21px;
+        width: 13px;
+        height: 14px;
+        cursor: pointer;
+        position: absolute;
+        background-color: inherit;
+        border: none;
+    
     }
 }

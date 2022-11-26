@@ -82,7 +82,7 @@ const Login: React.FC<ILogin> = ({
         onBlur={(e) => blurHandler(e)}
         className={styles.header__input}
         name="password"
-        type="text"
+        type="password"
         placeholder="Password"
       />
       {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}

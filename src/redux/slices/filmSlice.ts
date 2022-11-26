@@ -29,11 +29,13 @@ export enum Status {
 interface filmSliceState {
   items: filmItem[];
   status: Status;
+  activeGenres: string[];
 }
 
 const initialState: filmSliceState = {
   items: [],
   status: Status.LOADING,
+  activeGenres: ['Action', 'K drama'],
 };
 
 const filmSlice = createSlice({
@@ -42,6 +44,13 @@ const filmSlice = createSlice({
   reducers: {
     setItems(state, action: PayloadAction<filmItem[]>) {
       state.items = action.payload;
+    },
+    setActiveGenres(state, action: PayloadAction<string>) {
+      state.activeGenres = [...state.activeGenres, action.payload];
+    },
+    setClear(state, action: PayloadAction<string>) {
+      state.items = state.items.filter((obj) => !obj.genre.includes(action.payload));
+      state.activeGenres = state.activeGenres.filter((obj) => obj !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -60,6 +69,6 @@ const filmSlice = createSlice({
   },
 });
 
-export const { setItems } = filmSlice.actions;
+export const { setItems, setActiveGenres, setClear } = filmSlice.actions;
 
 export default filmSlice.reducer;

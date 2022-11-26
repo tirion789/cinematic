@@ -22,6 +22,7 @@ const Logup: React.FC<ILogup> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFail, setLoginFail] = useState<boolean>(false);
+  const [blurPassword, setBlurPassword] = useState(true);
   useEffect(() => {
     const loggedInUser = localStorage.getItem('users');
     if (loggedInUser) {
@@ -29,6 +30,10 @@ const Logup: React.FC<ILogup> = ({
       dispatch(setUser(foundUser));
     }
   }, [dispatch]);
+
+  const handlerShowPasswordButtonClick = () => {
+    setBlurPassword((prev) => !prev);
+  };
 
   const handlerLogin = async () => {
     const auth = getAuth();
@@ -73,9 +78,10 @@ const Logup: React.FC<ILogup> = ({
         onBlur={(e) => blurHandler(e)}
         className={styles.header__input}
         name="password"
-        type="text"
+        type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
+      <button onClick={handlerShowPasswordButtonClick}>asd</button>
       {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
       <button
         disabled={!formValid}

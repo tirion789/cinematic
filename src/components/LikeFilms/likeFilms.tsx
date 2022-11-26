@@ -6,18 +6,19 @@ import styles from './likeFilms.module.scss';
 
 type LikeFilmsProps = {
   id: string;
+  genre: string[];
 };
 
-const LikeFilms: React.FC<LikeFilmsProps> = ({ id }) => {
+const LikeFilms: React.FC<LikeFilmsProps> = ({ id, genre }) => {
   const items = useSelector((state: RootState) => state.film.items);
 
-  // const getSimilarFilm = () => {
-  //   return items.filter((item) => {
-  //     return genre.some((genre) => {
-  //       item.genre.includes(genre);
-  //     });
-  //   });
-  // };
+  const getSimilarFilm = () => {
+    return items.filter((item) => {
+      return genre.some((genre) => {
+        return item.genre.includes(genre);
+      });
+    });
+  };
 
   return (
     <div className={styles.likeFilms__container}>
@@ -26,22 +27,24 @@ const LikeFilms: React.FC<LikeFilmsProps> = ({ id }) => {
       </h1>
       <div className={styles.likeFilms__list}>
         <>
-          {items.slice(0, 4).map((obj) =>
-            obj.id !== id ? (
-              <div>
-                <Link to={`/film/${obj.id}`}>
-                  <img width={137} height={200} src={obj.ImgUrl} alt="" />
-                </Link>
-                <h1 className={styles.likeFilms__list_text}>{obj.title}</h1>
-                <ul>
-                  <li>{obj.time} min</li>
-                  <li>{}</li>
-                </ul>
-              </div>
-            ) : (
-              ''
-            ),
-          )}
+          {getSimilarFilm()
+            .slice(0, 4)
+            .map((obj) =>
+              obj.id !== id ? (
+                <div>
+                  <Link to={`/film/${obj.id}`}>
+                    <img width={137} height={200} src={obj.ImgUrl} alt="" />
+                  </Link>
+                  <h1 className={styles.likeFilms__list_text}>{obj.title}</h1>
+                  <ul>
+                    <li>{obj.time} min</li>
+                    <li>{}</li>
+                  </ul>
+                </div>
+              ) : (
+                ''
+              ),
+            )}
         </>
       </div>
     </div>

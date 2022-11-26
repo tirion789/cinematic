@@ -86,7 +86,7 @@ const FullFilm = () => {
                 />
                 <Dop flag={film.flag} country={film.country} />
               </div>
-              <LikeFilms id={film.id} />
+              <LikeFilms genre={film.genre} id={film.id} />
             </div>
             <Footer />
           </>

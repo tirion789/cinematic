@@ -11,14 +11,15 @@ type RecommendedFilmsProps = {
 const RecommededFilms: React.FC<RecommendedFilmsProps> = ({ genre, filteredFilms }) => {
   const filmByGenre = !genre
     ? filteredFilms
-    : filteredFilms.slice(0, 7).filter((item) => item.genre.includes(genre));
+    : filteredFilms.filter((item) => item.genre.includes(genre));
+
+  console.log(genre);
   return (
     <>
       <h1 className={styles.genre}>{genre}</h1>
       <div className={styles.wrapper}>
-        {filmByGenre.map(({ ImgUrl, id }) => (
-          <CartFilms ImgUrl={ImgUrl} id={id} />
-        ))}
+        {genre &&
+          filmByGenre.slice(0, 6).map(({ ImgUrl, id }) => <CartFilms ImgUrl={ImgUrl} id={id} />)}
       </div>
     </>
   );
