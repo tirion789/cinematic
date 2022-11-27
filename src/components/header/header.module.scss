@@ -70,20 +70,6 @@
     }
 
 
-    &__modal_inner {
-        position: relative;
-    }
-
-    &__input {
-        width: 443px;
-        border: 0;
-        border-bottom: 1px solid #707070;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 65px;
-        color: #707070;
-    }
-
     &__modal_show {
         opacity: 1;
         visibility: visible;
@@ -103,44 +89,6 @@
         visibility: visible;
         opacity: 1;
         transition: 1s;
-    }
-
-    &__close{
-        position: absolute;
-        width: 55px;
-        height: 55px;
-        cursor: pointer;
-        border: 1px solid black;
-        border-radius: 50%;
-        background-color: inherit;
-        bottom: 60px;
-        left: 575px;
-
-        &::before {
-            content: "";
-            position: absolute;
-            top: 25px;
-            left: 10px;
-            width: 35px;
-            height: 1px;
-            background: black;
-            webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 25px;
-            left: 10px;
-            width: 35px;
-            height: 1px;
-            background: black;
-            webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-            webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-        }
     }
 
     &__login {
@@ -195,40 +143,6 @@
         margin-top: 30px;
         padding: 15px 0;
         pointer-events: none;
-    }
-
-    &__submit_button {
-        background-color: #B11226;
-        border-radius: 53px;
-        border: 0;
-        width: 220px;
-        height: 67px;
-        cursor: pointer;
-        margin-top: 25px;
-        position: relative;
-        left: 50%;
-        transform: translate(-50%, 0);
-        font-family: 'Advent Pro';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 36px;
-        line-height: 43px;
-        text-align: center;
-        color: #fff;
-        position: absolute;
-        bottom: 90px;
-
-        &:active {
-            opacity: 0.5;
-        }
-
-        &:disabled{
-            background-color: #707070;
-            color: white;
-            &:active {
-                opacity: 1;
-            }
-        }
     }
 
 }

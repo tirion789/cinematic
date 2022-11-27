@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../header/header.module.scss';
+import styles from '../../scss/components/regauth.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
-import { ILogup } from './logup.iterface';
+import { ILogin } from './login.iterface';
 
-const Logup: React.FC<ILogup> = ({
+const Login: React.FC<ILogin> = ({
   emailHandler,
   passwordHandler,
   setOpen,
@@ -59,14 +59,14 @@ const Logup: React.FC<ILogup> = ({
 
   return (
     <>
-      <div className={styles.header__modal_inner}>
-        <button className={styles.header__close} onClick={() => setOpen(false)}></button>
+      <div className={styles.regauth__modal_inner}>
+        <button className={styles.regauth__close} onClick={() => setOpen(false)}></button>
       </div>
       <input
         value={email}
         onChange={(e) => emailHandler(e)}
         onBlur={(e) => blurHandler(e)}
-        className={styles.header__input}
+        className={styles.regauth__input}
         name="email"
         type="text"
         placeholder="Username or email"
@@ -76,17 +76,19 @@ const Logup: React.FC<ILogup> = ({
         onChange={(e) => passwordHandler(e)}
         value={password}
         onBlur={(e) => blurHandler(e)}
-        className={styles.header__input}
+        className={styles.regauth__input}
         name="password"
         type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
-      <button onClick={handlerShowPasswordButtonClick}>asd</button>
+      <button className={styles.regauth__buttonShow} onClick={handlerShowPasswordButtonClick}>
+        show/hidden
+      </button>
       {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
       <button
         disabled={!formValid}
         onClick={handlerLogin}
-        className={styles.header__submit_button}
+        className={styles.regauth__submit_button}
         type="submit">
         Log in
       </button>
@@ -97,4 +99,4 @@ const Logup: React.FC<ILogup> = ({
   );
 };
 
-export default Logup;
+export default Login;

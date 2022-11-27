@@ -13,7 +13,6 @@ const RecommededFilms: React.FC<RecommendedFilmsProps> = ({ genre, filteredFilms
     ? filteredFilms
     : filteredFilms.filter((item) => item.genre.includes(genre));
 
-  console.log(genre);
   return (
     <>
       <h1 className={styles.genre}>{genre}</h1>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import Login from '../login/login';
-import Logup from '../logup/logup';
+import Login from '../login/logup';
+import Logup from '../logup/login';
 import styles from './header.module.scss';
 import { useAuth } from '../../hooks/auth';
 import { removeUser } from '../../redux/slices/userSlice';

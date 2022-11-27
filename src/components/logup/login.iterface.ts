@@ -1,20 +1,20 @@
 import { ChangeEvent } from 'react';
 
 export interface ILogin {
-  passwordHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   emailHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   usernameHandler: (e: ChangeEvent<HTMLInputElement>) => void;
   blurHandler: (e: { target: { name: string } }) => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  passwordHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 
   username: string;
-  password: string;
   email: string;
+  password: string;
   userDirty: boolean;
   usernameError: string;
   emailDirty: boolean;
   emailError: string;
+  formValid: boolean;
   passwordDirty: boolean;
   passwordError: string;
-  formValid: boolean;
 }

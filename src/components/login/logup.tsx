@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../header/header.module.scss';
+import styles from '../../scss/components/regauth.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
-import { ILogin } from './login.interface';
+import { ILogup } from './logup.interface';
 
-const Login: React.FC<ILogin> = ({
+const Logup: React.FC<ILogup> = ({
   passwordHandler,
   emailHandler,
   setOpen,
@@ -22,6 +22,7 @@ const Login: React.FC<ILogin> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [registerFail, setRegisterFail] = useState(false);
+  const [blurPassword, setBlurPassword] = useState(true);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('users');
@@ -30,6 +31,10 @@ const Login: React.FC<ILogin> = ({
       dispatch(setUser(foundUser));
     }
   }, [dispatch]);
+
+  const handlerShowPasswordButtonClick = () => {
+    setBlurPassword((prev) => !prev);
+  };
 
   const handlerRegister = async () => {
     const auth = getAuth();
@@ -53,8 +58,8 @@ const Login: React.FC<ILogin> = ({
 
   return (
     <>
-      <div className={styles.header__modal_inner}>
-        <button className={styles.header__close} onClick={() => setOpen(false)}></button>
+      <div className={styles.regauth__modal_inner}>
+        <button className={styles.regauth__close} onClick={() => setOpen(false)}></button>
       </div>
       {/* <input
             value={username}
@@ -70,7 +75,7 @@ const Login: React.FC<ILogin> = ({
         onChange={(e) => emailHandler(e)}
         value={email}
         onBlur={(e) => blurHandler(e)}
-        className={styles.header__input}
+        className={styles.regauth__input}
         name="email"
         type="text"
         placeholder="Email"
@@ -80,26 +85,29 @@ const Login: React.FC<ILogin> = ({
         onChange={(e) => passwordHandler(e)}
         value={password}
         onBlur={(e) => blurHandler(e)}
-        className={styles.header__input}
+        className={styles.regauth__input}
         name="password"
-        type="password"
+        type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
+      <button className={styles.regauth__buttonShow} onClick={handlerShowPasswordButtonClick}>
+        show/hidden
+      </button>
       {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
       <button
         disabled={!formValid}
         onClick={handlerRegister}
-        className={styles.header__submit_button}
+        className={styles.regauth__submit_button}
         type="submit">
         Register
       </button>
       {registerFail && (
         <div style={{ width: 500, color: 'red', margin: 65 }}>
-          Похоже данная почта уже зарегестрированна :(
+          Похоже данная почта уже зарегестрированна
         </div>
       )}
     </>
   );
 };
 
-export default Login;
+export default Logup;

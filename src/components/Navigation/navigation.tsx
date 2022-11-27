@@ -21,7 +21,7 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
   };
 
   const handerLi = () => {
-    setGenre(true);
+    setGenre((prev) => !prev);
   };
 
   return (

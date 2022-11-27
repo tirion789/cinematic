@@ -9,10 +9,12 @@ import { fetchFilms, setActiveGenres } from '../../redux/slices/filmSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import RecommededFilms from '../../components/RecommendedFilms/recommendedFilms';
+// import Skeleton from '../../components/cartFilms/skeleton';
 
 const Home: React.FC = () => {
   const [value, setValue] = useState('');
   const items = useSelector((state: RootState) => state.film.items);
+  const status = useSelector((state: RootState) => state.film.status);
   const activeGenres = useSelector((state: RootState) => state.film.activeGenres);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -31,6 +33,7 @@ const Home: React.FC = () => {
   const handleOnGenreClick = (value: string) => {
     dispatch(setActiveGenres(value));
   };
+  // const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <>
@@ -40,9 +43,13 @@ const Home: React.FC = () => {
       <Search value={value} setValue={setValue} />
       <div className={styles.container}>
         <Recommended activeGenre={activeGenres} />
-        {activeGenres.map((item) => (
-          <RecommededFilms genre={item} filteredFilms={filterSearch} />
-        ))}
+        {status === 'error' ? (
+          <div style={{ color: 'red' }}>error</div>
+        ) : status === 'loading' ? (
+          <div className={styles.loading}>Loading...</div>
+        ) : (
+          activeGenres.map((item) => <RecommededFilms genre={item} filteredFilms={filterSearch} />)
+        )}
         <Footer />
       </div>
     </>
