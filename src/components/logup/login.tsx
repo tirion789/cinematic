@@ -4,25 +4,19 @@ import { setUser } from '../../redux/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
-import { ILogin } from './login.iterface';
+import { useInput } from '../../hooks/validation';
 
-const Login: React.FC<ILogin> = ({
-  emailHandler,
-  passwordHandler,
-  setOpen,
-  passwordDirty,
-  passwordError,
-  blurHandler,
-  email,
-  emailDirty,
-  emailError,
-  password,
-  formValid,
-}) => {
+type LoginProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Login: React.FC<LoginProps> = ({ setOpen }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginFail, setLoginFail] = useState<boolean>(false);
   const [blurPassword, setBlurPassword] = useState(true);
+  const email = useInput('', { isEmpty: true, minLength: 3, emailError: true });
+  const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 8 });
   useEffect(() => {
     const loggedInUser = localStorage.getItem('users');
     if (loggedInUser) {
@@ -38,7 +32,7 @@ const Login: React.FC<ILogin> = ({
   const handlerLogin = async () => {
     const auth = getAuth();
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await signInWithEmailAndPassword(auth, email.value, password.value);
       setLoginFail(false);
       dispatch(
         setUser({
@@ -63,30 +57,42 @@ const Login: React.FC<ILogin> = ({
         <button className={styles.regauth__close} onClick={() => setOpen(false)}></button>
       </div>
       <input
-        value={email}
-        onChange={(e) => emailHandler(e)}
-        onBlur={(e) => blurHandler(e)}
+        value={email.value}
+        onChange={(e) => email.onChange(e)}
+        onBlur={(e) => email.onBlur(e)}
         className={styles.regauth__input}
         name="email"
         type="text"
         placeholder="Username or email"
       />
-      {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+      {email.isDirty && email.isEmpty && (
+        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
+      )}
+      {email.isDirty && email.minLength && <div style={{ color: 'red' }}>Некорректная длина</div>}
+      {email.isDirty && email.emailError && <div style={{ color: 'red' }}>Некорректный email</div>}
       <input
-        onChange={(e) => passwordHandler(e)}
-        value={password}
-        onBlur={(e) => blurHandler(e)}
+        value={password.value}
+        onChange={(e) => password.onChange(e)}
+        onBlur={(e) => password.onBlur(e)}
         className={styles.regauth__input}
         name="password"
         type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
+      {password.isDirty && password.isEmpty && (
+        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
+      )}
+      {password.isDirty && password.minLength && (
+        <div style={{ color: 'red' }}>Некорректная длина</div>
+      )}
+      {password.isDirty && password.maxLength && (
+        <div style={{ color: 'red' }}>Слишком длинный пороль</div>
+      )}
       <button className={styles.regauth__buttonShow} onClick={handlerShowPasswordButtonClick}>
         show/hidden
       </button>
-      {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
       <button
-        disabled={!formValid}
+        disabled={!email.inputValid || !password.inputValid}
         onClick={handlerLogin}
         className={styles.regauth__submit_button}
         type="submit">

@@ -14,8 +14,6 @@ const FullFilm = () => {
   const [activeButton, setActiveButton] = useState('VidCloud');
   const { id } = useParams();
   const [film, setFilm] = useState<{
-    map(arg0: () => void): React.ReactNode;
-    filter(arg0: () => void): React.ReactNode;
     ImgUrl: string;
     title: string;
     time: string;

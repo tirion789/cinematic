@@ -4,25 +4,19 @@ import { setUser } from '../../redux/slices/userSlice';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
-import { ILogup } from './logup.interface';
+import { useInput } from '../../hooks/validation';
 
-const Logup: React.FC<ILogup> = ({
-  passwordHandler,
-  emailHandler,
-  setOpen,
-  blurHandler,
-  password,
-  email,
-  emailDirty,
-  emailError,
-  passwordDirty,
-  passwordError,
-  formValid,
-}) => {
+type LogupProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Logup: React.FC<LogupProps> = ({ setOpen }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [registerFail, setRegisterFail] = useState(false);
   const [blurPassword, setBlurPassword] = useState(true);
+  const email = useInput('', { isEmpty: true, minLength: 3, emailError: true });
+  const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 8 });
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('users');
@@ -38,7 +32,7 @@ const Logup: React.FC<ILogup> = ({
 
   const handlerRegister = async () => {
     const auth = getAuth();
-    await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email.value, password.value)
       .then(({ user }) => {
         setRegisterFail(false);
         dispatch(
@@ -61,44 +55,42 @@ const Logup: React.FC<ILogup> = ({
       <div className={styles.regauth__modal_inner}>
         <button className={styles.regauth__close} onClick={() => setOpen(false)}></button>
       </div>
-      {/* <input
-            value={username}
-            onChange={(e) => usernameHandler(e)}
-            onBlur={(e) => blurHandler(e)}
-            className={styles.header__input}
-            name="username"
-            type="text"
-            placeholder="Username"
-          />
-          {userDirty && usernameError && <div style={{ color: 'red' }}>{usernameError}</div>} */}
       <input
-        onChange={(e) => emailHandler(e)}
-        value={email}
-        onBlur={(e) => blurHandler(e)}
+        value={email.value}
+        onChange={(e) => email.onChange(e)}
+        onBlur={(e) => email.onBlur(e)}
         className={styles.regauth__input}
         name="email"
         type="text"
         placeholder="Email"
       />
-      {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+      {email.isDirty && email.isEmpty && (
+        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
+      )}
+      {email.isDirty && email.minLength && <div style={{ color: 'red' }}>Некорректная длина</div>}
+      {email.isDirty && email.emailError && <div style={{ color: 'red' }}>Некорректный email</div>}
       <input
-        onChange={(e) => passwordHandler(e)}
-        value={password}
-        onBlur={(e) => blurHandler(e)}
+        value={password.value}
+        onChange={(e) => password.onChange(e)}
+        onBlur={(e) => password.onBlur(e)}
         className={styles.regauth__input}
         name="password"
         type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
+      {password.isDirty && password.isEmpty && (
+        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
+      )}
+      {password.isDirty && password.minLength && (
+        <div style={{ color: 'red' }}>Некорректная длина</div>
+      )}
+      {password.isDirty && password.maxLength && (
+        <div style={{ color: 'red' }}>Слишком длинный пороль</div>
+      )}
       <button className={styles.regauth__buttonShow} onClick={handlerShowPasswordButtonClick}>
         show/hidden
       </button>
-      {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-      <button
-        disabled={!formValid}
-        onClick={handlerRegister}
-        className={styles.regauth__submit_button}
-        type="submit">
+      <button onClick={handlerRegister} className={styles.regauth__submit_button} type="submit">
         Register
       </button>
       {registerFail && (

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Login from '../login/logup';
 import Logup from '../logup/login';
 import styles from './header.module.scss';
@@ -14,16 +14,6 @@ const FORM_TYPES = {
 
 const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordDirty, setPasswordDirty] = useState(false);
-  const [emailDirty, setEmailDirty] = useState(false);
-  const [passwordError, setPassError] = useState('the password cannot be empty');
-  const [emailError, setEmailError] = useState('the email cannot be empty');
-  const [userDirty, setUserDirty] = useState(false);
-  const [usernameError, setUsernameError] = useState('the username cannot be empty');
-  const [username, setUsername] = useState('');
-  const [formValid, setFormValid] = useState(false);
   const [formType, setFormType] = useState(FORM_TYPES.signUp);
   const { isAuth, emails } = useAuth();
   const dispatch = useAppDispatch();
@@ -32,66 +22,6 @@ const Header: React.FC = () => {
     if (formType === FORM_TYPES.signUp) {
       setFormType(FORM_TYPES.singIn);
     } else setFormType(FORM_TYPES.signUp);
-  };
-
-  useEffect(() => {
-    if (emailError || passwordError) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-  }, [emailError, passwordError]);
-
-  const blurHandler = (e: { target: { name: string } }) => {
-    switch (e.target.name) {
-      case 'email':
-        setEmailDirty(true);
-        break;
-      case 'password':
-        setPasswordDirty(true);
-        break;
-      case 'username':
-        setUserDirty(true);
-    }
-  };
-
-  const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-    if (e.target.value.length < 3) {
-      setUsernameError('the username cannot be empty');
-      if (e.target.value) {
-        setUsernameError('the number of characters cannot be less than 3');
-      }
-    } else {
-      setUsernameError('');
-    }
-  };
-
-  const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    const re =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError('the email cannot be empty');
-
-      if (e.target.value) {
-        setEmailError('incorrect email');
-      }
-    } else {
-      setEmailError('');
-    }
-  };
-
-  const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (e.target.value.length < 5) {
-      setPassError('the password cannot be empty');
-      if (e.target.value) {
-        setPassError('the number of characters cannot be less than 5');
-      }
-    } else {
-      setPassError('');
-    }
   };
 
   return (
@@ -130,41 +60,9 @@ const Header: React.FC = () => {
             </button>
           </div>
           {formType === FORM_TYPES.singIn ? (
-            <Logup
-              emailHandler={emailHandler}
-              usernameHandler={usernameHandler}
-              setOpen={setOpen}
-              password={password}
-              username={username}
-              blurHandler={blurHandler}
-              email={email}
-              userDirty={userDirty}
-              usernameError={usernameError}
-              emailDirty={emailDirty}
-              emailError={emailError}
-              formValid={formValid}
-              passwordHandler={passwordHandler}
-              passwordDirty={passwordDirty}
-              passwordError={passwordError}
-            />
+            <Logup setOpen={setOpen} />
           ) : (
-            <Login
-              password={password}
-              passwordHandler={passwordHandler}
-              emailHandler={emailHandler}
-              usernameHandler={usernameHandler}
-              setOpen={setOpen}
-              username={username}
-              blurHandler={blurHandler}
-              email={email}
-              userDirty={userDirty}
-              usernameError={usernameError}
-              emailDirty={emailDirty}
-              emailError={emailError}
-              passwordDirty={passwordDirty}
-              passwordError={passwordError}
-              formValid={formValid}
-            />
+            <Login setOpen={setOpen} />
           )}
         </div>
       </div>

@@ -26,6 +26,7 @@ const Home: React.FC = () => {
     getFilms();
   }, [activeGenres]);
 
+  console.log(activeGenres);
   const filterSearch = items.filter((film) => {
     return film.title.toLowerCase().includes(value.toLowerCase());
   });
@@ -47,8 +48,12 @@ const Home: React.FC = () => {
           <div style={{ color: 'red' }}>error</div>
         ) : status === 'loading' ? (
           <div className={styles.loading}>Loading...</div>
+        ) : activeGenres.length === 0 ? (
+          <h1 className={styles.asdf}>Выберите жанр во вкладке Genre, чтобы появились фильмы</h1>
         ) : (
-          activeGenres.map((item) => <RecommededFilms genre={item} filteredFilms={filterSearch} />)
+          activeGenres.map((item: string) => (
+            <RecommededFilms genre={item} filteredFilms={filterSearch} />
+          ))
         )}
         <Footer />
       </div>
