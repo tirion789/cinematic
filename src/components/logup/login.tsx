@@ -15,8 +15,8 @@ const Login: React.FC<LoginProps> = ({ setOpen }) => {
   const navigate = useNavigate();
   const [loginFail, setLoginFail] = useState<boolean>(false);
   const [blurPassword, setBlurPassword] = useState(true);
-  const email = useInput('', { isEmpty: true, minLength: 3, emailError: true });
-  const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 8 });
+  const email = useInput('', { isEmpty: true, emailError: true });
+  const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 12 });
   useEffect(() => {
     const loggedInUser = localStorage.getItem('users');
     if (loggedInUser) {
@@ -65,11 +65,11 @@ const Login: React.FC<LoginProps> = ({ setOpen }) => {
         type="text"
         placeholder="Username or email"
       />
-      {email.isDirty && email.isEmpty && (
-        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
+      {email.isDirty && (email.isEmpty || email.emailError) && (
+        <div style={{ color: 'red' }}>
+          {email.isEmpty === true ? <p>Поле не может быть пустым</p> : <p>Некорректный email</p>}
+        </div>
       )}
-      {email.isDirty && email.minLength && <div style={{ color: 'red' }}>Некорректная длина</div>}
-      {email.isDirty && email.emailError && <div style={{ color: 'red' }}>Некорректный email</div>}
       <input
         value={password.value}
         onChange={(e) => password.onChange(e)}
@@ -79,14 +79,18 @@ const Login: React.FC<LoginProps> = ({ setOpen }) => {
         type={blurPassword ? 'password' : 'text'}
         placeholder="Password"
       />
-      {password.isDirty && password.isEmpty && (
-        <div style={{ color: 'red' }}>Поле не може быть пустым</div>
-      )}
-      {password.isDirty && password.minLength && (
-        <div style={{ color: 'red' }}>Некорректная длина</div>
-      )}
-      {password.isDirty && password.maxLength && (
-        <div style={{ color: 'red' }}>Слишком длинный пороль</div>
+      {password.isDirty && (password.isEmpty || password.minLength || password.maxLength) && (
+        <div style={{ color: 'red' }}>
+          {password.isEmpty === true ? (
+            <p>Поле не может быть пустым</p>
+          ) : password.minLength === true ? (
+            <p>Минимальная длина 5 символов</p>
+          ) : password.maxLength === true ? (
+            <p>Максимальная длина 12 символов</p>
+          ) : (
+            ''
+          )}
+        </div>
       )}
       <button className={styles.regauth__buttonShow} onClick={handlerShowPasswordButtonClick}>
         show/hidden
