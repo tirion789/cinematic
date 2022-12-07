@@ -38,7 +38,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <Header setOpen={String} />
       <Navigation setActiveGenre={handleOnGenreClick} />
       <p className={styles.title}>Find Movies, TV Series and much more</p>
       <Search value={value} setValue={setValue} />

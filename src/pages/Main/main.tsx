@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import CartFilms from '../../components/cartFilms/cartFilms';
 import styles from './main.module.scss';
@@ -6,11 +6,13 @@ import Footer from '../../components/footer/footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchFilms } from '../../redux/slices/filmSlice';
+import Modal from '../../components/Modal/modal';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector((state: RootState) => state.film.items);
   const status = useSelector((state: RootState) => state.film.status);
+  const [open, setOpen] = useState(false);
 
   const getFilms = async () => {
     dispatch(fetchFilms());
@@ -22,7 +24,7 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <Header setOpen={setOpen} />
       <div className={styles.container}>
         <p className={styles.wrapper__title}>TV Shows</p>
         <p className={styles.wrapper__text}>
@@ -35,7 +37,9 @@ const Main: React.FC = () => {
           <h1 style={{ color: 'white', padding: 50 }}>Loading...</h1>
         ) : (
           <>
-            <button className={styles.button}>Sing in</button>
+            <button onClick={() => setOpen(true)} className={styles.button}>
+              Sing in
+            </button>
             <div className={styles.wrapper}>
               {items.map(({ ImgUrl, id }) => (
                 <CartFilms key={id} ImgUrl={ImgUrl} id={id} />
@@ -44,6 +48,7 @@ const Main: React.FC = () => {
             </div>
           </>
         )}
+        <Modal open={open} setOpen={setOpen} />
         <Footer />
       </div>
     </>

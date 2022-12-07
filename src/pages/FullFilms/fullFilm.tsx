@@ -46,12 +46,8 @@ const FullFilm = () => {
 
   return (
     <>
-      <Header />
-      <Navigation
-        setActiveGenre={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Header setOpen={Boolean} />
+      <Navigation setActiveGenre={String} />
       <div className={styles.fullFilms}>
         {!film ? (
           <h1 className={styles.fullFilms__loading}>...Загрузка</h1>

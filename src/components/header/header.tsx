@@ -1,28 +1,18 @@
-import React, { useState } from 'react';
-import Login from '../login/logup';
-import Logup from '../logup/login';
+import React from 'react';
 import styles from './header.module.scss';
 import { useAuth } from '../../hooks/auth';
 import { removeUser } from '../../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
+import Modal from '../Modal/modal';
 
-const FORM_TYPES = {
-  signUp: 'Sing Up',
-  singIn: 'Sing In',
+type MainProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Header: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const [formType, setFormType] = useState(FORM_TYPES.signUp);
+const Header: React.FC<MainProps> = ({ setOpen }) => {
   const { isAuth, emails } = useAuth();
   const dispatch = useAppDispatch();
-
-  const onClickCategories = () => {
-    if (formType === FORM_TYPES.signUp) {
-      setFormType(FORM_TYPES.singIn);
-    } else setFormType(FORM_TYPES.signUp);
-  };
 
   return (
     <div className={styles.header}>
@@ -41,31 +31,12 @@ const Header: React.FC = () => {
           </li>
         )}
       </ul>
-      <div className={open ? styles.header__modal_overlay : ''}>
-        <div className={`${styles.header__modal} ${open ? styles.header__modal_show : ''}`}>
-          <div className={styles.header__buttons_cotainer}>
-            <button
-              onClick={onClickCategories}
-              className={`${
-                formType === FORM_TYPES.signUp ? styles.header__active : styles.header__login
-              }`}>
-              Sing Up
-            </button>
-            <button
-              onClick={onClickCategories}
-              className={`${
-                formType === FORM_TYPES.singIn ? styles.header__active : styles.header__login
-              }`}>
-              Sing In
-            </button>
-          </div>
-          {formType === FORM_TYPES.singIn ? (
-            <Logup setOpen={setOpen} />
-          ) : (
-            <Login setOpen={setOpen} />
-          )}
-        </div>
-      </div>
+      <Modal
+        setOpen={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+        open={false}
+      />
     </div>
   );
 };
