@@ -13,8 +13,13 @@
 
     &__list {
         display: flex;
-        justify-content: space-between;
         padding: 10px 52px;
+         :nth-child(1) {
+            margin-right: auto;
+         }
+         :nth-child(2) {
+            margin-right: 15px;
+         }
     }
 
     &__buttons {

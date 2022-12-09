@@ -7,6 +7,7 @@ import './scss/app.scss';
 import RequireAuth from './hoc/RequireAuth';
 import RequireRegister from './hoc/ReguireRegister';
 import FullFilm from './pages/FullFilms/fullFilm';
+import Profile from './pages/UserProfile/profile';
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
           element={
             <RequireAuth>
               <FullFilm />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <RequireAuth>
+              <Profile />
             </RequireAuth>
           }
         />

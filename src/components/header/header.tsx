@@ -19,9 +19,18 @@ const Header: React.FC<MainProps> = ({ setOpen }) => {
       <ul className={styles.header__list}>
         <li className={styles.header__name}>CINETREX</li>
         {isAuth ? (
-          <Link style={{ color: 'black' }} onClick={() => dispatch(removeUser())} to={'/'}>
-            {emails}
-          </Link>
+          <>
+            <li>
+              <Link style={{ color: 'black' }} to={'/user'}>
+                {emails}
+              </Link>
+            </li>
+            <li>
+              <Link onClick={() => dispatch(removeUser())} to={'/'}>
+                Выйти
+              </Link>
+            </li>
+          </>
         ) : (
           <li className={styles.header__buttons_list}>
             <a onClick={() => setOpen(true)} className={styles.header__buttons}>
