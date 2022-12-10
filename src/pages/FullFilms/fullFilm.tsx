@@ -72,11 +72,13 @@ const FullFilm = () => {
             <div className={styles.fullFilms__containter}>
               <div>
                 <Description
-                  imgUrl={film.ImgUrl}
+                  ImgUrl={film.ImgUrl}
                   description={film.description}
                   rating={film.rating}
                   time={film.time}
                   title={film.title}
+                  id={film.id}
+                  genre={film.genre}
                 />
                 <Dop flag={film.flag} country={film.country} />
               </div>

@@ -1,15 +1,44 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addFilms, IProfileSliceState } from '../../redux/slices/profileSlice';
 import styles from './description.module.scss';
 
 type DescpriptionProps = {
   time: string;
   description: string;
-  imgUrl: string;
+  ImgUrl: string;
   rating: string;
   title: string;
+  id: string;
+  genre: string[];
 };
 
-const Description: React.FC<DescpriptionProps> = ({ time, description, imgUrl, rating, title }) => {
+const Description: React.FC<DescpriptionProps> = ({
+  time,
+  description,
+  ImgUrl,
+  rating,
+  title,
+  id,
+  genre,
+}) => {
+  const dispatch = useDispatch();
+  const onClickAdd = () => {
+    const item: IProfileSliceState = {
+      id,
+      title,
+      rating,
+      time,
+      description,
+      genre,
+      ImgUrl,
+      country: '',
+      flag: '',
+    };
+    dispatch(addFilms(item));
+  };
+
+  console.log(id);
   return (
     <>
       <div className={styles.description__wrapper}>
@@ -18,9 +47,12 @@ const Description: React.FC<DescpriptionProps> = ({ time, description, imgUrl, r
             <img
               className={styles.fullFilms__description_imageFilm}
               width={262}
-              src={imgUrl}
+              src={ImgUrl}
               alt="films"
             />
+            <button onClick={onClickAdd} className={styles.description__add_button}>
+              Добавить в избранное
+            </button>
           </div>
           <div className={styles.description__information}>
             <h1 className={styles.description__title}>{title}</h1>

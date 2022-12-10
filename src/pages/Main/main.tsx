@@ -56,14 +56,3 @@ const Main: React.FC = () => {
 };
 
 export default Main;
-
-{
-  /* <button className={styles.button}>Sing in</button> */
-}
-
-// {data.map(({title, imgUrl}) => (
-//   <h2>{title}</h2>
-//   {imgUrl.map(({src})=> (
-//     <img src={src} alt="" />
-//   ))}
-// ))}
