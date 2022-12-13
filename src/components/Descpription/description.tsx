@@ -24,10 +24,10 @@ const Description: React.FC<DescpriptionProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [isFavorite, setisFavorite] = useState<boolean>(false);
+  const state = localStorage.getItem('profile');
   useEffect(() => {
-    const state = localStorage.getItem('profile');
-    setisFavorite(JSON.parse(state));
-  }, []);
+    setisFavorite(JSON.parse(state || ''));
+  }, [state]);
 
   const onClickAdd = () => {
     const item: IProfileSliceState = {
