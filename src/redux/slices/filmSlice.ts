@@ -50,7 +50,7 @@ const filmSlice = createSlice({
     },
     setClear(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => !obj.genre.includes(action.payload));
-      state.activeGenres = state.activeGenres.filter((obj) => obj !== action.payload);
+      state.activeGenres = state.activeGenres.filter((genre) => genre !== action.payload);
     },
   },
   extraReducers: (builder) => {

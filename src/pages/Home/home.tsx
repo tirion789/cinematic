@@ -52,7 +52,7 @@ const Home: React.FC = () => {
           <h1 className={styles.asdf}>Выберите жанр во вкладке Genre, чтобы появились фильмы</h1>
         ) : (
           activeGenres.map((item: string) => (
-            <RecommededFilms genre={item} filteredFilms={filterSearch} />
+            <RecommededFilms key={item} genre={item} filteredFilms={filterSearch} />
           ))
         )}
         <Footer />

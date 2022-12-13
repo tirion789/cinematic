@@ -33,7 +33,7 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
               Genre
             </li>
             {genre && (
-              <div className={styles.navigation__genre_list}>
+              <div key={index} className={styles.navigation__genre_list}>
                 {titleArray.map((value, index) => (
                   <button
                     key={index}

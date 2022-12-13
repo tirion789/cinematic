@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getCartFromLocalStorage } from '../../utils/getCartFromLocalStorage';
 
 export type IProfileSliceState = {
   ImgUrl: string;
@@ -17,7 +18,7 @@ interface ProfileSliceState {
 }
 
 const initialState: ProfileSliceState = {
-  items: [],
+  items: getCartFromLocalStorage(),
 };
 
 const profileSlice = createSlice({
@@ -30,9 +31,12 @@ const profileSlice = createSlice({
         ...action.payload,
       });
     },
+    deletedFilm(state, action: PayloadAction<string>) {
+      state.items = state.items.filter((obj) => obj.id !== action.payload);
+    },
   },
 });
 
-export const { addFilms } = profileSlice.actions;
+export const { addFilms, deletedFilm } = profileSlice.actions;
 
 export default profileSlice.reducer;

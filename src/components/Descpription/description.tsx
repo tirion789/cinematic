@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFilms, IProfileSliceState } from '../../redux/slices/profileSlice';
+import { addFilms, deletedFilm, IProfileSliceState } from '../../redux/slices/profileSlice';
 import styles from './description.module.scss';
 
 type DescpriptionProps = {
@@ -23,6 +23,12 @@ const Description: React.FC<DescpriptionProps> = ({
   genre,
 }) => {
   const dispatch = useDispatch();
+  const [isFavorite, setisFavorite] = useState<boolean>(false);
+  useEffect(() => {
+    const state = localStorage.getItem('profile');
+    setisFavorite(JSON.parse(state || ''));
+  }, []);
+
   const onClickAdd = () => {
     const item: IProfileSliceState = {
       id,
@@ -36,9 +42,15 @@ const Description: React.FC<DescpriptionProps> = ({
       flag: '',
     };
     dispatch(addFilms(item));
+    setisFavorite(true);
+    localStorage.setItem('profile', JSON.stringify(true));
   };
 
-  console.log(id);
+  const onClickDeleted = (id: string) => {
+    dispatch(deletedFilm(id));
+    setisFavorite(false);
+    localStorage.setItem('profile', JSON.stringify(false));
+  };
   return (
     <>
       <div className={styles.description__wrapper}>
@@ -50,9 +62,20 @@ const Description: React.FC<DescpriptionProps> = ({
               src={ImgUrl}
               alt="films"
             />
-            <button onClick={onClickAdd} className={styles.description__add_button}>
-              Добавить в избранное
-            </button>
+            <div>
+              {!isFavorite && (
+                <button onClick={onClickAdd} className={styles.description__add_button}>
+                  Добавить в избранное
+                </button>
+              )}
+              {isFavorite && (
+                <button
+                  onClick={() => onClickDeleted(id)}
+                  className={styles.description__add_button}>
+                  Удалить из избранного
+                </button>
+              )}
+            </div>
           </div>
           <div className={styles.description__information}>
             <h1 className={styles.description__title}>{title}</h1>
