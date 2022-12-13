@@ -26,7 +26,7 @@ const Description: React.FC<DescpriptionProps> = ({
   const [isFavorite, setisFavorite] = useState<boolean>(false);
   const state = localStorage.getItem('profile');
   useEffect(() => {
-    setisFavorite(Boolean(JSON.parse(state || '')));
+    setisFavorite(Boolean(JSON.parse(state || 'false')));
   }, [state]);
 
   const onClickAdd = () => {
