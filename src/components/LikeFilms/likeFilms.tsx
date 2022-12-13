@@ -31,7 +31,7 @@ const LikeFilms: React.FC<LikeFilmsProps> = ({ id, genre }) => {
             .slice(0, 4)
             .map((obj) =>
               obj.id !== id ? (
-                <div>
+                <div key={obj.id}>
                   <Link to={`/film/${obj.id}`}>
                     <img width={137} height={200} src={obj.ImgUrl} alt="" />
                   </Link>

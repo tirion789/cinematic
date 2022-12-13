@@ -17,8 +17,8 @@ const Recommended: React.FC<RecommendedProps> = ({ activeGenre }) => {
     <div className={styles.recommended}>
       <p className={styles.recommended__title}>Recommended</p>
       <div className={styles.recommended__list}>
-        {activeGenre.map((genre) => (
-          <button className={styles.recommended__item}>
+        {activeGenre.map((genre, index) => (
+          <div key={index} className={styles.recommended__item}>
             {genre}
             <button
               className={styles.recommended__deteleButton}
@@ -35,7 +35,7 @@ const Recommended: React.FC<RecommendedProps> = ({ activeGenre }) => {
                 />
               </svg>
             </button>
-          </button>
+          </div>
         ))}
       </div>
     </div>

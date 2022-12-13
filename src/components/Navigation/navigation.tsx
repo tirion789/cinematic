@@ -28,15 +28,14 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
     <ul className={styles.navigation}>
       {navigations.map((navigationName, index) =>
         navigationName === 'Genre' ? (
-          <>
-            <li key={index} onClick={handerLi} className={styles.navigation__item}>
+          <div key={index}>
+            <li onClick={handerLi} className={styles.navigation__item}>
               Genre
             </li>
             {genre && (
               <div key={index} className={styles.navigation__genre_list}>
-                {titleArray.map((value, index) => (
+                {titleArray.map((value) => (
                   <button
-                    key={index}
                     value={value}
                     onClick={onActiveGenre}
                     className={styles.navigation__genre_items}>
@@ -45,11 +44,9 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
                 ))}
               </div>
             )}
-          </>
+          </div>
         ) : (
-          <li key={index} className={styles.navigation__item}>
-            {navigationName}
-          </li>
+          <li className={styles.navigation__item}>{navigationName}</li>
         ),
       )}
     </ul>
