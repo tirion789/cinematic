@@ -46,7 +46,9 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
             )}
           </div>
         ) : (
-          <li className={styles.navigation__item}>{navigationName}</li>
+          <li key={index} className={styles.navigation__item}>
+            {navigationName}
+          </li>
         ),
       )}
     </ul>

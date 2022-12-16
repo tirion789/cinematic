@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { deletedFilm } from '../../redux/slices/profileSlice';
 import styles from './favorites.module.scss';
@@ -16,11 +16,17 @@ type FavoritesProps = {
 };
 
 const Favorites: React.FC<FavoritesProps> = ({ ImgUrl, title, rating, genre, id }) => {
-  console.log(id);
   const dispatch = useDispatch();
   const onClickDeleted = (id: string) => {
     dispatch(deletedFilm(id));
   };
+
+  useEffect(() => {
+    console.log('asdf');
+    return () => {
+      console.log('УДАЛЕНЫ ВСЕ ФИЛЬМЫ');
+    };
+  }, []);
   return (
     <>
       <div className={styles.favorites__conteiner}>

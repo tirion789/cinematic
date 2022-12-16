@@ -5,6 +5,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { RootState } from '../../redux/store';
 import styles from './profile.module.scss';
+import Chart from '../../components/Charts/charts';
 
 const Profile: React.FC = () => {
   const items = useSelector((state: RootState) => state.profile.items);
@@ -25,6 +26,7 @@ const Profile: React.FC = () => {
               {items.map((item) => (
                 <Favorites key={item.id} {...item} />
               ))}
+              <Chart />
             </div>
           )}
         </div>
