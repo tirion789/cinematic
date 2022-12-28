@@ -5,8 +5,8 @@ import styles from './main.module.scss';
 import Footer from '../../components/footer/footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
-import { fetchFilms } from '../../redux/slices/filmSlice';
 import Modal from '../../components/Modal/modal';
+import { fetchFilms } from '../../redux/slices/film/filmAsync';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +24,7 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <Header setOpen={setOpen} />
+      <Header />
       <div className={styles.container}>
         <p className={styles.wrapper__title}>TV Shows</p>
         <p className={styles.wrapper__text}>

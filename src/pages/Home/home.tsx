@@ -5,11 +5,11 @@ import Search from '../../components/Search';
 import styles from './home.module.scss';
 import Recommended from '../../components/Recommended/recommended';
 import Footer from '../../components/footer/footer';
-import { fetchFilms, setActiveGenres } from '../../redux/slices/filmSlice';
+import { setActiveGenres } from '../../redux/slices/film/filmSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import RecommededFilms from '../../components/RecommendedFilms/recommendedFilms';
-// import Skeleton from '../../components/cartFilms/skeleton';
+import { fetchFilms } from '../../redux/slices/film/filmAsync';
 
 const Home: React.FC = () => {
   const [value, setValue] = useState('');
@@ -34,11 +34,10 @@ const Home: React.FC = () => {
   const handleOnGenreClick = (value: string) => {
     dispatch(setActiveGenres(value));
   };
-  // const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <>
-      <Header setOpen={String} />
+      <Header />
       <Navigation setActiveGenre={handleOnGenreClick} />
       <p className={styles.title}>Find Movies, TV Series and much more</p>
       <Search value={value} setValue={setValue} />

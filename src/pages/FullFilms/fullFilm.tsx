@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import styles from './fullFilms.module.scss';
@@ -8,45 +7,42 @@ import Footer from '../../components/footer/footer';
 import Description from '../../components/Descpription/description';
 import Dop from '../../components/AdditionalInformation/additionalInformation';
 import LikeFilms from '../../components/LikeFilms/likeFilms';
+import { fetchFilm } from '../../redux/slices/film/filmAsync';
+import { RootState, useAppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
 const FullFilm = () => {
   const videoPlayerList = ['VidCloud', 'HDRip', 'Videovard', 'Dosteam', 'Vidstem'];
   const [activeButton, setActiveButton] = useState('VidCloud');
+  const film = useSelector((state: RootState) => state.film.currentItem);
+  const dispatch = useAppDispatch();
+
   const { id } = useParams();
-  const [film, setFilm] = useState<{
-    ImgUrl: string;
-    title: string;
-    time: string;
-    rating: string;
-    description: string;
-    country: string;
-    flag: string;
-    genre: string[];
-    id: string;
-  }>();
 
   const onClickButton = (n: string) => {
     setActiveButton(n);
   };
 
   useEffect(() => {
-    const featchFilms = async () => {
-      try {
-        const { data } = await axios.get(
-          'https://629b64b3656cea05fc3883e0.mockapi.io/Items2/' + id,
-        );
-        console.log(data);
-        setFilm(data);
-      } catch (error) {
-        alert('ошибка');
-      }
+    if (id) {
+      dispatch(fetchFilm(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://yohoho.cc/yo.js';
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
     };
-    featchFilms();
-  }, [id]);
+  }, []);
+
+  console.log(film?.video);
 
   return (
     <>
-      <Header setOpen={Boolean} />
+      <Header />
       <Navigation setActiveGenre={String} />
       <div className={styles.fullFilms}>
         {!film ? (
@@ -54,7 +50,9 @@ const FullFilm = () => {
         ) : (
           <>
             <h1 className={styles.fullFilms__title}>Home/ {film.title}</h1>
-            <div className={styles.fullFilms__video}></div>
+            <div className={styles.fullFilms__video}>
+              <div id="yohoho" data-kinopoisk={film.video}></div>
+            </div>
             <div className={styles.fullFilms__player_list}>
               {videoPlayerList.map((value, index) => (
                 <button

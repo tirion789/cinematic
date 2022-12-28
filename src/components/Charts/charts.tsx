@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 
 const Chart: React.FC = () => {
   const labels = ['Action', 'K drama', 'Sitcom', 'Romantic'];
+  const colors = ['white', 'blue', 'blue', 'red'];
   const items = useSelector((state: RootState) => state.profile.items);
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -33,30 +34,35 @@ const Chart: React.FC = () => {
   );
 
   const options = {
-    responsive: true,
+    indexAxis: 'y' as const,
+    elements: {
+      bar: {
+        borderWidth: 2,
+      },
+    },
+    responsive: false,
     plugins: {
       legend: {
-        position: 'top' as const,
+        display: false,
       },
       title: {
         display: true,
+        text: 'Genre statistics',
       },
     },
   };
-
-  console.log(countArray);
 
   const data = {
     labels,
     datasets: [
       {
-        label: 'Статистика по жанрам',
+        label: '',
         data: countArray,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: colors,
       },
     ],
   };
-  return <Bar options={options} data={data} />;
+  return <Bar color="" width={300} options={options} data={data} />;
 };
 
 export default Chart;

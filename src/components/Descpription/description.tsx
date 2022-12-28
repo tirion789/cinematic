@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFilms, deletedFilm, IProfileSliceState } from '../../redux/slices/profileSlice';
+import { IProfileSliceState } from '../../redux/slices/profile/profileType';
+import { addFilms, deletedFilm } from '../../redux/slices/profile/profileSlice';
 import styles from './description.module.scss';
 
 type DescpriptionProps = {
@@ -56,12 +57,7 @@ const Description: React.FC<DescpriptionProps> = ({
       <div className={styles.description__wrapper}>
         <div className={styles.description__container}>
           <div className={styles.description__image}>
-            <img
-              className={styles.fullFilms__description_imageFilm}
-              width={262}
-              src={ImgUrl}
-              alt="films"
-            />
+            <img width={262} src={ImgUrl} alt="films" />
             <div>
               {!isFavorite && (
                 <button onClick={onClickAdd} className={styles.description__add_button}>

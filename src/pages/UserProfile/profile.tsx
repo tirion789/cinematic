@@ -15,10 +15,10 @@ const Profile: React.FC = () => {
   }, [items]);
   return (
     <>
-      <Header setOpen={String} />
+      <Header />
       <div className={styles.container}>
+        <h1 className={styles.title}>Favorite</h1>
         <div className={styles.asdf}>
-          <h1 className={styles.title}>Favorite</h1>
           {items.length === 0 ? (
             <h2 style={{ color: 'white' }}>Your favorite movies will be displayed here</h2>
           ) : (
@@ -26,9 +26,11 @@ const Profile: React.FC = () => {
               {items.map((item) => (
                 <Favorites key={item.id} {...item} />
               ))}
-              <Chart />
             </div>
           )}
+          <div className={styles.chart}>
+            <Chart />
+          </div>
         </div>
         <Footer />
       </div>

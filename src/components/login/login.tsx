@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../scss/components/regauth.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 import { useInput } from '../../hooks/validation';
+import { authFch } from '../../redux/slices/film/filmAsync';
+import { useSelector } from 'react-redux';
 
 type LoginProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,8 +12,7 @@ type LoginProps = {
 
 const Login: React.FC<LoginProps> = ({ setOpen }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [loginFail, setLoginFail] = useState<boolean>(false);
+  const loginFail = useSelector((state: RootState) => state.film.loginFail);
   const [blurPassword, setBlurPassword] = useState(true);
   const email = useInput('', { isEmpty: true, emailError: true });
   const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 12 });
@@ -29,26 +28,8 @@ const Login: React.FC<LoginProps> = ({ setOpen }) => {
     setBlurPassword((prev) => !prev);
   };
 
-  const handlerLogin = async () => {
-    const auth = getAuth();
-    try {
-      const { user } = await signInWithEmailAndPassword(auth, email.value, password.value);
-      setLoginFail(false);
-      dispatch(
-        setUser({
-          email: user.email,
-          id: user.uid,
-          token: user.refreshToken,
-        }),
-      );
-      navigate('/home');
-      localStorage.setItem('users', JSON.stringify(user));
-      console.log('1');
-    } catch (error) {
-      setLoginFail(true);
-      console.log('ERROR', error);
-    }
-    console.log('2');
+  const handlerLogin = () => {
+    dispatch(authFch({ email, password }));
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './header.module.scss';
 import { useAuth } from '../../hooks/auth';
 import { removeUser } from '../../redux/slices/userSlice';
@@ -6,18 +6,19 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 import Modal from '../Modal/modal';
 
-type MainProps = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header: React.FC<MainProps> = ({ setOpen }) => {
+const Header: React.FC = () => {
   const { isAuth, emails } = useAuth();
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={styles.header}>
       <ul className={styles.header__list}>
-        <li className={styles.header__name}>CINETREX</li>
+        <li>
+          <Link className={styles.header__name} to={'/'}>
+            CINETREX
+          </Link>
+        </li>
         {isAuth ? (
           <>
             <li>
@@ -40,12 +41,7 @@ const Header: React.FC<MainProps> = ({ setOpen }) => {
           </li>
         )}
       </ul>
-      <Modal
-        setOpen={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-        open={false}
-      />
+      <Modal setOpen={setOpen} open={open} />
     </div>
   );
 };

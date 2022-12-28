@@ -9,7 +9,7 @@ type cartFilmsProps = {
 
 const CartFilms: React.FC<cartFilmsProps> = ({ ImgUrl, id }) => {
   return (
-    <div className={styles.genres__film}>
+    <div className={styles.cartFilm__film}>
       <Link to={`/film/${id}`}>
         <img width={177} height={250} src={ImgUrl} alt="Карточка фильма" />
       </Link>

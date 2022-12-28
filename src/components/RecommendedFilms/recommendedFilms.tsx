@@ -1,5 +1,5 @@
 import React from 'react';
-import { filmItem } from '../../redux/slices/filmSlice';
+import { filmItem } from '../../redux/slices/film/filmType';
 import CartFilms from '../cartFilms/cartFilms';
 import styles from './recommendedFilms.module.scss';
 

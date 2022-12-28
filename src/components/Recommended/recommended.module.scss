@@ -12,7 +12,7 @@
 
         &::before{
             content: "";
-            border: 5px solid #B11226;
+            border: 2px solid #B11226;
             filter: blur(2px);
             position: absolute;
             top: 40px;
@@ -74,5 +74,11 @@
         background-color: inherit;
         border: none;
     
+    }
+
+    &__trending_svg {
+        position: absolute;
+        left: 4px;
+        top: 21px;
     }
 }

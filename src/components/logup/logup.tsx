@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../scss/components/regauth.module.scss';
 import { setUser } from '../../redux/slices/userSlice';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 import { useInput } from '../../hooks/validation';
+import { regAuth } from '../../redux/slices/film/filmAsync';
+import { useSelector } from 'react-redux';
 
 type LogupProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,8 +12,7 @@ type LogupProps = {
 
 const Logup: React.FC<LogupProps> = ({ setOpen }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [registerFail, setRegisterFail] = useState(false);
+  const registerFail = useSelector((state: RootState) => state.film.registerFail);
   const [blurPassword, setBlurPassword] = useState(true);
   const email = useInput('', { isEmpty: true, emailError: true });
   const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 12 });
@@ -30,24 +29,8 @@ const Logup: React.FC<LogupProps> = ({ setOpen }) => {
     setBlurPassword((prev) => !prev);
   };
 
-  const handlerRegister = async () => {
-    const auth = getAuth();
-    await createUserWithEmailAndPassword(auth, email.value, password.value)
-      .then(({ user }) => {
-        setRegisterFail(false);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-          }),
-        );
-        navigate('/home');
-        localStorage.setItem('users', JSON.stringify(user));
-      })
-      .catch(() => {
-        setRegisterFail(true);
-      });
+  const handlerRegister = () => {
+    dispatch(regAuth({ email, password }));
   };
 
   return (

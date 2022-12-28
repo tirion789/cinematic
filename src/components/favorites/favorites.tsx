@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deletedFilm } from '../../redux/slices/profileSlice';
+import { deletedFilm } from '../../redux/slices/profile/profileSlice';
 import styles from './favorites.module.scss';
 
 type FavoritesProps = {
@@ -21,18 +21,12 @@ const Favorites: React.FC<FavoritesProps> = ({ ImgUrl, title, rating, genre, id 
     dispatch(deletedFilm(id));
   };
 
-  useEffect(() => {
-    console.log('asdf');
-    return () => {
-      console.log('УДАЛЕНЫ ВСЕ ФИЛЬМЫ');
-    };
-  }, []);
   return (
     <>
       <div className={styles.favorites__conteiner}>
         <div className={styles.favorites__items}>
           <div className={styles.favorites__img}>
-            <img width={177} height={250} src={ImgUrl} alt={'asdf'} />
+            <img width={177} height={250} src={ImgUrl} alt={'film poster'} />
           </div>
           <div className={styles.favorites__name}>{title}</div>
           <div className={styles.favorites__genre}>{genre}</div>
