@@ -20,7 +20,9 @@ const RecommededFilms: React.FC<RecommendedFilmsProps> = ({ genre, filteredFilms
       <h1 className={styles.genre}>{genre}</h1>
       <div className={styles.wrapper}>
         {genre &&
-          filmByGenre.map(({ ImgUrl, id }) => <CartFilms key={id} ImgUrl={ImgUrl} id={id} />)}
+          filmByGenre
+            .slice(0, 6)
+            .map(({ ImgUrl, id }) => <CartFilms key={id} ImgUrl={ImgUrl} id={id} />)}
       </div>
     </>
   );
