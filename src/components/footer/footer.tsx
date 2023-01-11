@@ -3,32 +3,7 @@ import styles from './footer.module.scss';
 
 const Footer: React.FC = () => {
   return (
-    <div className={styles.footer}>
-      <div className={styles.footer__container}>
-        <h1 className={styles.footer__title}>Links</h1>
-        <div className={styles.footer__link}>
-          <ul className={styles.footer__list}>
-            <li className={styles.footer__items}>Movies</li>
-            <li className={styles.footer__items}>Tv Series</li>
-            <li className={styles.footer__items}>Short Films</li>
-            <li className={styles.footer__items}>Most Watched</li>
-            <li className={styles.footer__items}>Top IMdb</li>
-            <li className={styles.footer__items}>F2 Movies</li>
-            <li className={styles.footer__items}>Actions</li>
-            <li className={styles.footer__items}>Horror</li>
-            <li className={styles.footer__items}>Sci - fi</li>
-            <li className={styles.footer__items}>K Drama</li>
-            <li className={styles.footer__items}>Romantic</li>
-          </ul>
-
-          <ul>
-            <li className={styles.footer__items}>Contact</li>
-            <li className={styles.footer__items}>Request</li>
-            <li className={styles.footer__items}>Mail</li>
-            <li className={styles.footer__items}>Sitemap</li>
-          </ul>
-        </div>
-      </div>
+    <footer className={styles.footer}>
       <div className={styles.footer__container}>
         <h1 className={styles.footer__title}>About Us</h1>
         <p className={styles.footer__text}>
@@ -41,7 +16,7 @@ const Footer: React.FC = () => {
           hosted on 3rd party services
         </p>
       </div>
-    </div>
+    </footer>
   );
 };
 

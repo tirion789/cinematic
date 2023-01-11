@@ -32,9 +32,9 @@ const Main: React.FC = () => {
           the world
         </p>
         {status === 'error' ? (
-          <h1 style={{ color: 'white', padding: 50 }}>error</h1>
+          <h1>error</h1>
         ) : status === 'loading' ? (
-          <h1 style={{ color: 'white', padding: 50 }}>Loading...</h1>
+          <h1>Loading...</h1>
         ) : (
           <>
             <button onClick={() => setOpen(true)} className={styles.button}>
@@ -49,8 +49,8 @@ const Main: React.FC = () => {
           </>
         )}
         <Modal open={open} setOpen={setOpen} />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

@@ -16,9 +16,12 @@ const profileSlice = createSlice({
     deletedFilm(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);
     },
+    filterFilms(state, action: PayloadAction<string>) {
+      state.items = state.items.filter((obj) => obj.genre.includes(action.payload));
+    },
   },
 });
 
-export const { addFilms, deletedFilm } = profileSlice.actions;
+export const { addFilms, deletedFilm, filterFilms } = profileSlice.actions;
 
 export default profileSlice.reducer;

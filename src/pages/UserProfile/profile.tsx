@@ -6,6 +6,7 @@ import Header from '../../components/header/header';
 import { RootState } from '../../redux/store';
 import styles from './profile.module.scss';
 import Chart from '../../components/Charts/charts';
+import Checkbox from '../../components/Checkbox/checkbox';
 
 const Profile: React.FC = () => {
   const items = useSelector((state: RootState) => state.profile.items);
@@ -18,7 +19,8 @@ const Profile: React.FC = () => {
       <Header />
       <div className={styles.container}>
         <h1 className={styles.title}>Favorite</h1>
-        <div className={styles.asdf}>
+        <div className={styles.content}>
+          <Checkbox />
           {items.length === 0 ? (
             <h2 style={{ color: 'white' }}>Your favorite movies will be displayed here</h2>
           ) : (
@@ -32,8 +34,8 @@ const Profile: React.FC = () => {
             <Chart />
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

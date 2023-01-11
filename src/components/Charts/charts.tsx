@@ -62,7 +62,7 @@ const Chart: React.FC = () => {
       },
     ],
   };
-  return <Bar color="" width={300} options={options} data={data} />;
+  return <Bar height={500} width={300} options={options} data={data} />;
 };
 
 export default Chart;

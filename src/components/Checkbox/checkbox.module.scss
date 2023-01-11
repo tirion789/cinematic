@@ -1,0 +1,17 @@
+.checkbox {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        margin-right: 50px;
+        width: 200px;
+        margin-top: 30px;
+    }
+
+    &__listItem {
+        margin-top: 15px;
+    }
+
+    &__listInput {
+        margin-right: 5px;
+    }
+}

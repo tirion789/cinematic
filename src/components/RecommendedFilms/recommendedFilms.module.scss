@@ -3,6 +3,24 @@
     margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+
+    @media (max-width: 1363px) {
+        grid-template-columns: repeat(5, 1fr);;
+      }
+
+      @media (max-width: 1180px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @media (max-width: 950px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 715px) {
+        grid-template-columns: repeat(2, 1fr);;
+      }
+      @media (max-width: 525px) {
+        grid-template-columns: repeat(1, 1fr);;
+      }
 }
 
 .genre {

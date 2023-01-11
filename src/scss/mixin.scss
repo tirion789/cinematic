@@ -1,0 +1,14 @@
+@mixin button {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: black;
+    padding: 10px 36px;
+    background-color: #B11226;
+    width: 165px;
+    text-align: center;
+    margin-top: 15px;
+    cursor: pointer;
+}

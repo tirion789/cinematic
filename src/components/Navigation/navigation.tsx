@@ -8,7 +8,7 @@ type HomeProps = {
 
 const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
   const [genre, setGenre] = useState(false);
-  const navigations = ['Home', 'Genre', 'Country', 'Movies', 'TV Series', 'TopImDb'];
+  const navigations = ['Home', 'Genre'];
   // const asdfasdf = [{
   //   link: '/home',
   //   title: 'Home',
@@ -28,7 +28,7 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
     <ul className={styles.navigation}>
       {navigations.map((navigationName, index) =>
         navigationName === 'Genre' ? (
-          <div key={index}>
+          <>
             <li onClick={handerLi} className={styles.navigation__item}>
               Genre
             </li>
@@ -44,7 +44,7 @@ const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
                 ))}
               </div>
             )}
-          </div>
+          </>
         ) : (
           <li key={index} className={styles.navigation__item}>
             {navigationName}

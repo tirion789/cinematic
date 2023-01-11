@@ -20,4 +20,12 @@
         line-height: 42px;
         margin-right: 10px;
     }
+
+    &__aboutFilm {
+        display: flex;
+
+        li {
+            margin-right: 15px;
+        }
+    }
 }

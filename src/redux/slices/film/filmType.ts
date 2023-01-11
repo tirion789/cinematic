@@ -9,6 +9,8 @@ export type filmItem = {
   genre: string[];
   id: string;
   video: string;
+  release: string;
+  director: string[];
 };
 
 export enum Status {

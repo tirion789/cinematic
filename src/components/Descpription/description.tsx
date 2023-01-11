@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IProfileSliceState } from '../../redux/slices/profile/profileType';
 import { addFilms, deletedFilm } from '../../redux/slices/profile/profileSlice';
 import styles from './description.module.scss';
+import { RootState } from '../../redux/store';
 
 type DescpriptionProps = {
   time: string;
@@ -24,11 +25,15 @@ const Description: React.FC<DescpriptionProps> = ({
   genre,
 }) => {
   const dispatch = useDispatch();
+  const items = useSelector((state: RootState) => state.profile.items);
   const [isFavorite, setisFavorite] = useState<boolean>(false);
-  const state = localStorage.getItem('profile');
+  const state = localStorage.getItem('profile' + id);
   useEffect(() => {
     setisFavorite(Boolean(JSON.parse(state || 'false')));
-  }, [state]);
+    return items.some((obj) => obj.id === id) ? setisFavorite(true) : setisFavorite(false);
+  }, [id, items, state]);
+
+  console.log(items);
 
   const onClickAdd = () => {
     const item: IProfileSliceState = {
@@ -44,20 +49,20 @@ const Description: React.FC<DescpriptionProps> = ({
     };
     dispatch(addFilms(item));
     setisFavorite(true);
-    localStorage.setItem('profile', JSON.stringify(true));
+    localStorage.setItem('profile' + id, JSON.stringify(true));
   };
 
   const onClickDeleted = (id: string) => {
     dispatch(deletedFilm(id));
     setisFavorite(false);
-    localStorage.setItem('profile', JSON.stringify(false));
+    localStorage.setItem('profile' + id, JSON.stringify(false));
   };
   return (
     <>
       <div className={styles.description__wrapper}>
         <div className={styles.description__container}>
           <div className={styles.description__image}>
-            <img width={262} src={ImgUrl} alt="films" />
+            <img width={262} height={370} src={ImgUrl} alt="films" />
             <div>
               {!isFavorite && (
                 <button onClick={onClickAdd} className={styles.description__add_button}>

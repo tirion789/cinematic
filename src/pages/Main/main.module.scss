@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 .title {
     color: white;
     text-align: center;
@@ -82,4 +84,8 @@
 
 .container {
     padding: 0 52px;
+
+    h1 {
+        padding: 50px;
+    }
 }

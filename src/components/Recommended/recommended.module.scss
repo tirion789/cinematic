@@ -1,3 +1,5 @@
+@import '../../scss/mixin.scss';
+
 .recommended {
     position: relative;
     margin-top: 52px;
@@ -16,46 +18,21 @@
             filter: blur(2px);
             position: absolute;
             top: 40px;
-            width: 1338px;
+            width: 100%
         }
     }
 
     &__item {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 28px;
-        color: black;
-        margin-right: 49px;
+        @include button;
         padding: 13px 36px;
-        background-color: #B11226;
-        position: relative;
         width: 165px;
-        text-align: center;
-        margin-top: 15px;
-
-    }
-
-
-    &__active_item {
-        background-color: white;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 28px;
-        color: black;
-        margin-right: 49px;
-        padding: 12px 36px;
         position: relative;
-        height: 55px;
-        width: 161px;
-        text-align: center;
-        margin-top: 15px;
+        margin-right: 59px;
+        cursor: auto;
     }
 
     &__list {
         display: flex;
-        width: 830px;
         flex-wrap: wrap;
         margin-top: 39px;
     }

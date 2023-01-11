@@ -1,24 +1,6 @@
 .footer {
     color: white;
-    display: flex;
-    justify-content: space-between;
-
-    &__list {
-        display: flex;
-        width: 300px;
-        height: 146px;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin-right: 85px;
-    }
-
-    &__wrapper {
-        display: flex;
-    }
-
-    &__link {
-        display: flex;
-    }
+    padding: 0 52px;
 
     &__text {
         font-family: 'Bitter';
@@ -35,7 +17,8 @@
     }
 
     &__container {
-        width: 665px;
+       margin-top: 50px;
+       padding-bottom: 50px;
     } 
 
     &__items {

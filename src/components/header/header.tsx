@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <ul className={styles.header__list}>
         <li>
           <Link className={styles.header__name} to={'/'}>
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
         )}
       </ul>
       <Modal setOpen={setOpen} open={open} />
-    </div>
+    </header>
   );
 };
 

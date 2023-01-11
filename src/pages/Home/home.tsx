@@ -26,6 +26,8 @@ const Home: React.FC = () => {
     getFilms();
   }, [activeGenres]);
 
+  console.log(items);
+
   console.log(activeGenres);
   const filterSearch = items.filter((film) => {
     return film.title.toLowerCase().includes(value.toLowerCase());
@@ -38,24 +40,26 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <Navigation setActiveGenre={handleOnGenreClick} />
-      <p className={styles.title}>Find Movies, TV Series and much more</p>
-      <Search value={value} setValue={setValue} />
-      <div className={styles.container}>
-        <Recommended activeGenre={activeGenres} />
-        {status === 'error' ? (
-          <div style={{ color: 'red' }}>error</div>
-        ) : status === 'loading' ? (
-          <div className={styles.loading}>Loading...</div>
-        ) : activeGenres.length === 0 ? (
-          <h1 className={styles.asdf}>Выберите жанр во вкладке Genre, чтобы появились фильмы</h1>
-        ) : (
-          activeGenres.map((item: string) => (
-            <RecommededFilms key={item} genre={item} filteredFilms={filterSearch} />
-          ))
-        )}
-        <Footer />
+      <div>
+        <Navigation setActiveGenre={handleOnGenreClick} />
+        <p className={styles.title}>Find Movies, TV Series and much more</p>
+        <Search value={value} setValue={setValue} />
+        <div className={styles.container}>
+          <Recommended activeGenre={activeGenres} />
+          {status === 'error' ? (
+            <div style={{ color: 'red' }}>error</div>
+          ) : status === 'loading' ? (
+            <div className={styles.loading}>Loading...</div>
+          ) : activeGenres.length === 0 ? (
+            <h1 className={styles.asdf}>Выберите жанр во вкладке Genre, чтобы появились фильмы</h1>
+          ) : (
+            activeGenres.map((item: string) => (
+              <RecommededFilms key={item} genre={item} filteredFilms={filterSearch} />
+            ))
+          )}
+        </div>
       </div>
+      <Footer />
     </>
   );
 };
