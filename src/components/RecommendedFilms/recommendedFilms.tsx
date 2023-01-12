@@ -1,14 +1,21 @@
 import React from 'react';
-import { filmItem } from '../../redux/slices/film/filmType';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import CartFilms from '../cartFilms/cartFilms';
 import styles from './recommendedFilms.module.scss';
 
 type RecommendedFilmsProps = {
   genre: string;
-  filteredFilms: filmItem[];
 };
 
-const RecommededFilms: React.FC<RecommendedFilmsProps> = ({ genre, filteredFilms }) => {
+const RecommededFilms: React.FC<RecommendedFilmsProps> = ({ genre }) => {
+  const items = useSelector((state: RootState) => state.film.items);
+  const value = useSelector((state: RootState) => state.filter.searchValue);
+
+  const filteredFilms = items.filter((film) => {
+    return film.title.toLowerCase().includes(value.toLowerCase());
+  });
+
   const filmByGenre = !genre
     ? filteredFilms
     : filteredFilms.filter((item) => item.genre.includes(genre));

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../scss/components/regauth.module.scss';
-import { setUser } from '../../redux/slices/userSlice';
+import { setUser } from '../../redux/slices/user/userSlice';
 import { RootState, useAppDispatch } from '../../redux/store';
 import { useInput } from '../../hooks/validation';
 import { regAuth } from '../../redux/slices/film/filmAsync';

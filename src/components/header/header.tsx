@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './header.module.scss';
 import { useAuth } from '../../hooks/auth';
-import { removeUser } from '../../redux/slices/userSlice';
+import { removeUser } from '../../redux/slices/user/userSlice';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 import Modal from '../Modal/modal';

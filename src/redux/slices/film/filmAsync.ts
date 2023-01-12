@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { setUser } from '../userSlice';
+import { setUser } from '../user/userSlice';
 import { auth, filmItem } from './filmType';
 
 export const fetchFilms = createAsyncThunk<filmItem[]>('films/fetchFilmsStatus', async () => {

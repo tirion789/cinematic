@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import styles from './navigation.module.scss';
 import { MouseEvent } from 'react';
+import { setActiveGenres } from '../../redux/slices/film/filmSlice';
+import { useAppDispatch } from '../../redux/store';
 
-type HomeProps = {
-  setActiveGenre: (n: string) => void;
-};
-
-const Navigation: React.FC<HomeProps> = ({ setActiveGenre }) => {
+const Navigation: React.FC = () => {
   const [genre, setGenre] = useState(false);
   const navigations = ['Home', 'Genre'];
+  const dispatch = useAppDispatch();
   // const asdfasdf = [{
   //   link: '/home',
   //   title: 'Home',
   // }]
   const titleArray = ['Action', 'Sitcom', 'Romantic', 'K drama'];
 
+  const handleOnGenreClick = (value: string) => {
+    dispatch(setActiveGenres(value));
+  };
+
   const onActiveGenre = (event: MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value;
-    setActiveGenre(value);
+    handleOnGenreClick(value);
   };
 
   const handerLi = () => {

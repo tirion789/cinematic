@@ -39,7 +39,7 @@ const FullFilm = () => {
   return (
     <>
       <Header />
-      <Navigation setActiveGenre={String} />
+      <Navigation />
       <div className={styles.fullFilms}>
         {!film ? (
           <h1 className={styles.fullFilms__loading}>...Загрузка</h1>

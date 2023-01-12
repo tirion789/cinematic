@@ -1,5 +1,5 @@
 import { useAuth } from '../hooks/auth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import React from 'react';
 
 type PageProps = {
@@ -8,8 +8,9 @@ type PageProps = {
 
 const RequireAuth: React.FC<PageProps> = ({ children }) => {
   const { isAuth } = useAuth();
+  const location = useLocation();
   if (!isAuth) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" state={{ from: location }} />;
   }
   return children;
 };

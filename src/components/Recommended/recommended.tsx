@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setClear, setTrendingClear } from '../../redux/slices/film/filmSlice';
+import { RootState } from '../../redux/store';
 import styles from './recommended.module.scss';
 
-type RecommendedProps = {
-  activeGenre: string[];
-};
-
-const Recommended: React.FC<RecommendedProps> = ({ activeGenre }) => {
+const Recommended: React.FC = () => {
+  const activeGenre = useSelector((state: RootState) => state.film.activeGenres);
   const dispatch = useDispatch();
   const onClickRemove = (genre: string) => {
     dispatch(setClear(genre));
